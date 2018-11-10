@@ -23,7 +23,7 @@ namespace Ceetah {
   class InsertionPoint {
     public:
       AST::Node* node;
-      std::weak_ptr<InsertionPoint> parent;
+      std::shared_ptr<InsertionPoint> parent = nullptr;
       size_t index = 0;
 
       InsertionPoint(AST::Node* node);

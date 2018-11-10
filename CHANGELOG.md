@@ -6,6 +6,11 @@ This project follows [semantic versioning](https://semver.org).
 ## [Unreleased]
 Nothing yet.
 
+## [0.0.1] - 2018-11-09
+### Fixed
+  * Variable declarations should be using `extern`---otherwise, they're just definitions without initiailzers. Whoops!
+  * Builders should now properly enter and exit insertion points
+
 ## [0.0.0] - 2018-11-08
 ### Added
   * Basic preprocessor directives

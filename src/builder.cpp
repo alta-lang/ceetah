@@ -112,6 +112,7 @@ void Ceetah::Builder::insertPreprocessorDefinition(std::string whatToDefine, std
   auto def = new AST::DefinitivePreprocessorDirective();
   def->definition = whatToDefine;
   def->value = value;
+  insert(def);
 };
 void Ceetah::Builder::insertExpressionStatement(Ceetah::AST::Expression* expr) {
   auto exprStmt = new AST::ExpressionStatement();
@@ -123,7 +124,6 @@ void Ceetah::Builder::enterInsertionPoint() {
   return enterInsertionPoint(insertionPoint->index);
 };
 
-// <not-implemented>
 void Ceetah::Builder::enterInsertionPoint(size_t index) {
   AST::NodeType nodeType = insertionPoint->node->nodeType();
   if (nodeType == AST::NodeType::RootNode) {
@@ -132,15 +132,20 @@ void Ceetah::Builder::enterInsertionPoint(size_t index) {
   } else if (nodeType == AST::NodeType::FunctionDefinition) {
     auto func = dynamic_cast<AST::FunctionDefinition*>(insertionPoint->node);
     insertionPoint = std::make_shared<InsertionPoint>(insertionPoint, func->body[index]);
+  } else if (nodeType == AST::NodeType::ConditionalPreprocessorDirective) {
+    auto cond = dynamic_cast<AST::ConditionalPreprocessorDirective*>(insertionPoint->node);
+    insertionPoint = std::make_shared<InsertionPoint>(insertionPoint, cond->nodes[index]);
   }
 };
+
+// <not-implemented>
 void Ceetah::Builder::enterInsertionPoint(AST::Node* insertionTarget) {
   throw UnimplementedException("Ceetah::Builder::enterInsertionPoint(AST::Node*)");
 };
 // </not-implemented>
 
 void Ceetah::Builder::exitInsertionPoint() {
-  if (!insertionPoint->parent.expired()) {
-    insertionPoint = insertionPoint->parent.lock();
+  if (insertionPoint->parent != nullptr) {
+    insertionPoint = insertionPoint->parent;
   }
 };
