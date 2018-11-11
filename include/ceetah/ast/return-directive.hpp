@@ -12,7 +12,7 @@ namespace Ceetah {
       public:
         virtual const NodeType nodeType();
 
-        AST::Expression* value = nullptr;
+        std::shared_ptr<AST::Expression> value = nullptr;
 
         virtual std::string toString();
         virtual bool operator ==(const ReturnDirective& other);

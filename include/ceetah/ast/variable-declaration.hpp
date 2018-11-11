@@ -12,7 +12,7 @@ namespace Ceetah {
         virtual const NodeType nodeType();
 
         std::string name;
-        Type* type;
+        std::shared_ptr<Type> type;
 
         virtual std::string toString();
         virtual bool operator ==(const VariableDeclaration& other);

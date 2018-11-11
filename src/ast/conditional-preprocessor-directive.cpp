@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/conditional-preprocessor-directive.hpp"
+#include "../../include/ceetah/ast/conditional-preprocessor-directive.hpp"
 
 const Ceetah::AST::NodeType Ceetah::AST::ConditionalPreprocessorDirective::nodeType() {
   return NodeType::ConditionalPreprocessorDirective;

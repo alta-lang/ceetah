@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/integer-literal.hpp"
+#include "../../include/ceetah/ast/integer-literal.hpp"
 
 const Ceetah::AST::NodeType Ceetah::AST::IntegerLiteral::nodeType() {
   return NodeType::IntegerLiteral;

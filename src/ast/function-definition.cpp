@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/function-definition.hpp"
+#include "../../include/ceetah/ast/function-definition.hpp"
 
 const Ceetah::AST::NodeType Ceetah::AST::FunctionDefinition::nodeType() {
   return NodeType::FunctionDefinition;

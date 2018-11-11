@@ -11,7 +11,7 @@ namespace Ceetah {
       public:
         virtual const NodeType nodeType();
 
-        std::vector<Node*> statements;
+        std::vector<std::shared_ptr<Node>> statements;
 
         virtual std::string toString();
         virtual bool operator ==(const RootNode& other);

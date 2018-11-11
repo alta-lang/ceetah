@@ -10,13 +10,13 @@ namespace Ceetah {
       public:
         virtual const NodeType nodeType();
 
-        Expression* target;
+        std::shared_ptr<Expression> target;
         std::string query;
 
         virtual std::string toString();
         virtual bool operator ==(const Accessor& other);
 
-        AST::Accessor* access(std::string subquery);
+        std::shared_ptr<AST::Accessor> access(std::string subquery);
     };
   };
 };

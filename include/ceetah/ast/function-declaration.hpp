@@ -13,8 +13,8 @@ namespace Ceetah {
         virtual const NodeType nodeType();
 
         std::string name;
-        std::vector<std::tuple<std::string, Type*>> parameters;
-        Type* returnType;
+        std::vector<std::tuple<std::string, std::shared_ptr<Type>>> parameters;
+        std::shared_ptr<Type> returnType;
 
         virtual std::string toString();
         virtual bool operator ==(const FunctionDeclaration& other);

@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/node.hpp"
+#include "../../include/ceetah/ast/node.hpp"
 
 const Ceetah::AST::NodeType Ceetah::AST::Node::nodeType() {
   return NodeType::Node;

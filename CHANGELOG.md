@@ -6,6 +6,15 @@ This project follows [semantic versioning](https://semver.org).
 ## [Unreleased]
 Nothing yet.
 
+## [0.1.0] - 2018-11-11
+### Added
+  * Smart pointers here, smart pointers there, smart pointers everywhere
+    * We've switched to smart pointers for, well, everything, because Ceetah needs to create many nodes and it usually can't keep track of them all
+    * Plus, laziness
+  * Expression indirection/pointer creation
+  * Expression dereference/lookup creation
+  * Assignment expressions
+
 ## [0.0.1] - 2018-11-09
 ### Fixed
   * Variable declarations should be using `extern`---otherwise, they're just definitions without initiailzers. Whoops!

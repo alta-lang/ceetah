@@ -24,6 +24,9 @@ namespace Ceetah {
       Accessor,
       Fetch,
       VariableDeclaration,
+      Pointer,
+      Dereference,
+      Assignment,
     };
 
     static const char* const NodeType_names[] = {
@@ -44,6 +47,9 @@ namespace Ceetah {
       "Accessor",
       "Fetch",
       "VariableDeclaration",
+      "Pointer",
+      "Dereference",
+      "Assignment",
     };
 
     enum class TypeModifierFlag: uint8_t {

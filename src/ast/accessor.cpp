@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/accessor.hpp"
+#include "../../include/ceetah/ast/accessor.hpp"
 
 const Ceetah::AST::NodeType Ceetah::AST::Accessor::nodeType() {
   return NodeType::Accessor;
@@ -8,9 +8,9 @@ std::string Ceetah::AST::Accessor::toString() {
   return target->toString() + '.' + query;
 };
 
-Ceetah::AST::Accessor* Ceetah::AST::Accessor::access(std::string subquery) {
-  auto newAcc = new Accessor();
-  newAcc->target = this;
+std::shared_ptr<Ceetah::AST::Accessor> Ceetah::AST::Accessor::access(std::string subquery) {
+  auto newAcc = std::make_shared<Accessor>();
+  newAcc->target = std::make_shared<Accessor>(*this);
   newAcc->query = subquery;
   return newAcc;
 };

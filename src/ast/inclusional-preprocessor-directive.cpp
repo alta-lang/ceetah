@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/inclusional-preprocessor-directive.hpp"
+#include "../../include/ceetah/ast/inclusional-preprocessor-directive.hpp"
 
 const Ceetah::AST::NodeType Ceetah::AST::InclusionalPreprocessorDirective::nodeType() {
   return NodeType::InclusionalPreprocessorDirective;

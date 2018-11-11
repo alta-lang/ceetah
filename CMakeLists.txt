@@ -29,5 +29,8 @@ add_library(ceetah
   "${PROJECT_SOURCE_DIR}/src/ast/accessor.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/fetch.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/variable-declaration.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/pointer.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/dereference.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/assignment.cpp"
 )
 target_include_directories(ceetah PUBLIC "${PROJECT_SOURCE_DIR}/include")

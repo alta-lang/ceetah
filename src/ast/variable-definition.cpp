@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/variable-definition.hpp"
+#include "../../include/ceetah/ast/variable-definition.hpp"
 
 const Ceetah::AST::NodeType Ceetah::AST::VariableDefinition::nodeType() {
   return NodeType::VariableDefinition;

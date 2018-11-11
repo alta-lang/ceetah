@@ -11,7 +11,7 @@ namespace Ceetah {
         virtual const NodeType nodeType();
 
         std::string test;
-        std::vector<Node*> nodes;
+        std::vector<std::shared_ptr<Node>> nodes;
 
         virtual std::string toString();
         virtual bool operator ==(const ConditionalPreprocessorDirective& other);

@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/fetch.hpp"
+#include "../../include/ceetah/ast/fetch.hpp"
 
 const Ceetah::AST::NodeType Ceetah::AST::Fetch::nodeType() {
   return NodeType::Fetch;

@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/variable-declaration.hpp"
+#include "../../include/ceetah/ast/variable-declaration.hpp"
 
 const Ceetah::AST::NodeType Ceetah::AST::VariableDeclaration::nodeType() {
   return NodeType::VariableDeclaration;

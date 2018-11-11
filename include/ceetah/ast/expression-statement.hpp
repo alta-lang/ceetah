@@ -12,7 +12,7 @@ namespace Ceetah {
       public:
         virtual const NodeType nodeType();
 
-        Expression* expression;
+        std::shared_ptr<Expression> expression;
 
         virtual std::string toString();
         virtual bool operator ==(const ExpressionStatement& other);

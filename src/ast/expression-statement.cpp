@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/expression-statement.hpp"
+#include "../../include/ceetah/ast/expression-statement.hpp"
 
 const Ceetah::AST::NodeType Ceetah::AST::ExpressionStatement::nodeType() {
   return NodeType::ExpressionStatement;

@@ -21,5 +21,8 @@
 #include "ast/accessor.hpp"
 #include "ast/fetch.hpp"
 #include "ast/variable-declaration.hpp"
+#include "ast/pointer.hpp"
+#include "ast/dereference.hpp"
+#include "ast/assignment.hpp"
 
 #endif // CEETAH_AST_HPP

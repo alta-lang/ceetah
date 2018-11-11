@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/definitive-preprocessor-directive.hpp"
+#include "../../include/ceetah/ast/definitive-preprocessor-directive.hpp"
 
 const Ceetah::AST::NodeType Ceetah::AST::DefinitivePreprocessorDirective::nodeType() {
   return NodeType::DefinitivePreprocessorDirective;

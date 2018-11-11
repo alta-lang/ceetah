@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/return-directive.hpp"
+#include "../../include/ceetah/ast/return-directive.hpp"
 
 const Ceetah::AST::NodeType Ceetah::AST::ReturnDirective::nodeType() {
   return NodeType::ReturnDirective;

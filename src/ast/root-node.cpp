@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/root-node.hpp"
+#include "../../include/ceetah/ast/root-node.hpp"
 #include <cinttypes>
 
 const Ceetah::AST::NodeType Ceetah::AST::RootNode::nodeType() {

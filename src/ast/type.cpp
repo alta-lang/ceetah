@@ -1,4 +1,4 @@
-#include "../include/ceetah/ast/type.hpp"
+#include "../../include/ceetah/ast/type.hpp"
 #include <cinttypes>
 
 const Ceetah::AST::NodeType Ceetah::AST::Type::nodeType() {

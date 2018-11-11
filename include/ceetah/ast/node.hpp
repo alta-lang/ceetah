@@ -10,7 +10,7 @@ namespace Ceetah {
       public:
         virtual const NodeType nodeType();
 
-        Node* parent = nullptr;
+        std::weak_ptr<Node> parent;
         
         virtual std::string toString();
         virtual bool operator ==(const Node& other);
