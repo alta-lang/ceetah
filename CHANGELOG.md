@@ -6,6 +6,12 @@ This project follows [semantic versioning](https://semver.org).
 ## [Unreleased]
 Nothing yet.
 
+## [0.2.0] - 2018-11-13
+### Added
+  * Binary operations (`+`, `-`, `*`, `/`)
+  * Multi expressions (a.k.a. commma-sequenced expressions; e.g. `someExpression, someOtherExpression`)
+  * Preprocessor undefinitions (e.g. `#undef FOOBAR`)
+
 ## [0.1.0] - 2018-11-11
 ### Added
   * Smart pointers here, smart pointers there, smart pointers everywhere

@@ -27,6 +27,9 @@ namespace Ceetah {
       Pointer,
       Dereference,
       Assignment,
+      MultiExpression,
+      BinaryOperation,
+      UndefinitivePreprocessorDirective,
     };
 
     static const char* const NodeType_names[] = {
@@ -50,12 +53,29 @@ namespace Ceetah {
       "Pointer",
       "Dereference",
       "Assignment",
+      "MultiExpression",
+      "BinaryOperation",
+      "UndefinitivePreprocessorDirective",
     };
 
     enum class TypeModifierFlag: uint8_t {
       None     = 0,
       Pointer  = 1 << 0,
       Constant = 1 << 1,
+    };
+
+    enum class OperatorType: uint8_t {
+      Addition,
+      Subtraction,
+      Multiplication,
+      Division,
+    };
+
+    static const char OperatorType_operators[] = {
+      '+',
+      '-',
+      '*',
+      '/',
     };
   };
 };

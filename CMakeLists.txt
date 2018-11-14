@@ -32,5 +32,8 @@ add_library(ceetah
   "${PROJECT_SOURCE_DIR}/src/ast/pointer.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/dereference.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/assignment.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/multi-expression.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/binary-operation.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/undefinitive-preprocessor-directive.cpp"
 )
 target_include_directories(ceetah PUBLIC "${PROJECT_SOURCE_DIR}/include")

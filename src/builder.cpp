@@ -61,6 +61,18 @@ std::shared_ptr<Ceetah::AST::Assignment> Ceetah::Builder::createAssignment(std::
   assign->value = value;
   return assign;
 };
+std::shared_ptr<Ceetah::AST::MultiExpression> Ceetah::Builder::createMultiExpression(std::vector<std::shared_ptr<Ceetah::AST::Expression>> expressions) {
+  auto multi = std::make_shared<AST::MultiExpression>();
+  multi->expressions = expressions;
+  return multi;
+};
+std::shared_ptr<Ceetah::AST::BinaryOperation> Ceetah::Builder::createBinaryOperation(Ceetah::AST::OperatorType operation, std::shared_ptr<Ceetah::AST::Expression> left, std::shared_ptr<Ceetah::AST::Expression> right) {
+  auto binOp = std::make_shared<AST::BinaryOperation>();
+  binOp->type = operation;
+  binOp->left = left;
+  binOp->right = right;
+  return binOp;
+};
 
 void Ceetah::Builder::insert(std::shared_ptr<Ceetah::AST::Node> node, bool enter) {
   auto pos = insertionPoint->insert(node);
@@ -128,6 +140,11 @@ void Ceetah::Builder::insertExpressionStatement(std::shared_ptr<Ceetah::AST::Exp
   auto exprStmt = std::make_shared<AST::ExpressionStatement>();
   exprStmt->expression = expr;
   insert(exprStmt);
+};
+void Ceetah::Builder::insertPreprocessorUndefinition(std::string whatToUndefine) {
+  auto undef = std::make_shared<AST::UndefinitivePreprocessorDirective>();
+  undef->undefinition = whatToUndefine;
+  insert(undef);
 };
 
 void Ceetah::Builder::enterInsertionPoint() {

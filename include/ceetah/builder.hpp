@@ -92,6 +92,8 @@ namespace Ceetah {
       std::shared_ptr<AST::Pointer> createPointer(std::shared_ptr<AST::Expression> target);
       std::shared_ptr<AST::Dereference> createDereference(std::shared_ptr<AST::Expression> target);
       std::shared_ptr<AST::Assignment> createAssignment(std::shared_ptr<AST::Expression> target, std::shared_ptr<AST::Expression> value);
+      std::shared_ptr<AST::MultiExpression> createMultiExpression(std::vector<std::shared_ptr<AST::Expression>> expressions);
+      std::shared_ptr<AST::BinaryOperation> createBinaryOperation(AST::OperatorType operation, std::shared_ptr<AST::Expression> left, std::shared_ptr<AST::Expression> right);
 
       void insert(std::shared_ptr<AST::Node> node, bool enter = false);
       void insertAfter(std::shared_ptr<AST::Node> node, bool enter = false);
@@ -105,6 +107,7 @@ namespace Ceetah {
       void insertVariableDeclaration(std::shared_ptr<AST::Type> type, std::string name);
       void insertPreprocessorDefinition(std::string whatToDefine, std::string value = "");
       void insertExpressionStatement(std::shared_ptr<AST::Expression> expr);
+      void insertPreprocessorUndefinition(std::string whatToUndefine);
 
       void enterInsertionPoint();
       void enterInsertionPoint(size_t index);

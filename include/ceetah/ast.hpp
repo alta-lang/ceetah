@@ -24,5 +24,8 @@
 #include "ast/pointer.hpp"
 #include "ast/dereference.hpp"
 #include "ast/assignment.hpp"
+#include "ast/multi-expression.hpp"
+#include "ast/binary-operation.hpp"
+#include "ast/undefinitive-preprocessor-directive.hpp"
 
 #endif // CEETAH_AST_HPP
