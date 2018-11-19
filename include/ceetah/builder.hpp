@@ -84,6 +84,8 @@ namespace Ceetah {
 
       std::shared_ptr<AST::Type> createType(std::string name, std::vector<uint8_t> modifiers);
       std::shared_ptr<AST::Type> createType(std::string name, std::vector<std::vector<AST::TypeModifierFlag>> modifiers);
+      std::shared_ptr<AST::Type> createType(std::shared_ptr<AST::Type> returnType, std::vector<std::shared_ptr<AST::Type>> parameters, std::vector<uint8_t> modifiers);
+      std::shared_ptr<AST::Type> createType(std::shared_ptr<AST::Type> returnType, std::vector<std::shared_ptr<AST::Type>> parameters, std::vector<std::vector<AST::TypeModifierFlag>> modifiers);
       std::shared_ptr<AST::IntegerLiteral> createIntegerLiteral(std::string raw);
       std::shared_ptr<AST::IntegerLiteral> createIntegerLiteral(int64_t integer);
       std::shared_ptr<AST::Fetch> createFetch(std::string query);
@@ -94,6 +96,7 @@ namespace Ceetah {
       std::shared_ptr<AST::Assignment> createAssignment(std::shared_ptr<AST::Expression> target, std::shared_ptr<AST::Expression> value);
       std::shared_ptr<AST::MultiExpression> createMultiExpression(std::vector<std::shared_ptr<AST::Expression>> expressions);
       std::shared_ptr<AST::BinaryOperation> createBinaryOperation(AST::OperatorType operation, std::shared_ptr<AST::Expression> left, std::shared_ptr<AST::Expression> right);
+      std::shared_ptr<AST::FunctionCall> createFunctionCall(std::shared_ptr<AST::Expression> target, std::vector<std::shared_ptr<AST::Expression>> arguments);
 
       void insert(std::shared_ptr<AST::Node> node, bool enter = false);
       void insertAfter(std::shared_ptr<AST::Node> node, bool enter = false);
@@ -108,6 +111,7 @@ namespace Ceetah {
       void insertPreprocessorDefinition(std::string whatToDefine, std::string value = "");
       void insertExpressionStatement(std::shared_ptr<AST::Expression> expr);
       void insertPreprocessorUndefinition(std::string whatToUndefine);
+      void insertTypeDefinition(std::string name, std::shared_ptr<Ceetah::AST::Type> type);
 
       void enterInsertionPoint();
       void enterInsertionPoint(size_t index);

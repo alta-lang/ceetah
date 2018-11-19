@@ -9,9 +9,30 @@ Ceetah::AST::Type::Type(std::string _name, std::vector<uint8_t> _modifiers):
   name(_name),
   modifiers(_modifiers)
   {};
+Ceetah::AST::Type::Type(std::shared_ptr<Ceetah::AST::Type> _returnType, std::vector<std::shared_ptr<Ceetah::AST::Type>> _parameters, std::vector<uint8_t> _modifiers):
+  isFunction(true),
+  returnType(_returnType),
+  parameters(_parameters),
+  modifiers(_modifiers)
+  {};
 
 std::string Ceetah::AST::Type::toString() {
-  std::string result = name;
+  std::string result;
+  if (isFunction) {
+    result = returnType->toString() + "(*)(";
+    bool isFirst = true;
+    for (auto& param: parameters) {
+      if (isFirst) {
+        isFirst = false;
+      } else {
+        result += ", ";
+      }
+      result += param->toString();
+    }
+    result += ')';
+  } else {
+    result = name;
+  }
   for (auto rit = modifiers.rbegin(); rit != modifiers.rend(); rit++) {
     uint8_t& level = *rit;
     if (level & (uint8_t)TypeModifierFlag::Pointer) {

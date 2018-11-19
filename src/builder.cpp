@@ -23,6 +23,20 @@ std::shared_ptr<Ceetah::AST::Type> Ceetah::Builder::createType(std::string name,
   }
   return createType(name, flagModifiers);
 };
+std::shared_ptr<Ceetah::AST::Type> Ceetah::Builder::createType(std::shared_ptr<Ceetah::AST::Type> returnType, std::vector<std::shared_ptr<Ceetah::AST::Type>> parameters, std::vector<uint8_t> modifiers) {
+  return std::make_shared<AST::Type>(returnType, parameters, modifiers);
+};
+std::shared_ptr<Ceetah::AST::Type> Ceetah::Builder::createType(std::shared_ptr<Ceetah::AST::Type> returnType, std::vector<std::shared_ptr<Ceetah::AST::Type>> parameters, std::vector<std::vector<Ceetah::AST::TypeModifierFlag>> modifiers) {
+  std::vector<uint8_t> flagModifiers;
+  for (auto& modifierLevel: modifiers) {
+    uint8_t level = 0;
+    for (auto& modifier: modifierLevel) {
+      level |= (uint8_t)modifier;
+    }
+    flagModifiers.push_back(level);
+  }
+  return createType(returnType, parameters, flagModifiers);
+};
 std::shared_ptr<Ceetah::AST::IntegerLiteral> Ceetah::Builder::createIntegerLiteral(std::string raw) {
   auto intLit = std::make_shared<AST::IntegerLiteral>();
   intLit->raw = raw;
@@ -72,6 +86,12 @@ std::shared_ptr<Ceetah::AST::BinaryOperation> Ceetah::Builder::createBinaryOpera
   binOp->left = left;
   binOp->right = right;
   return binOp;
+};
+std::shared_ptr<Ceetah::AST::FunctionCall> Ceetah::Builder::createFunctionCall(std::shared_ptr<Ceetah::AST::Expression> target, std::vector<std::shared_ptr<Ceetah::AST::Expression>> arguments) {
+  auto funcCall = std::make_shared<AST::FunctionCall>();
+  funcCall->target = target;
+  funcCall->arguments = arguments;
+  return funcCall;
 };
 
 void Ceetah::Builder::insert(std::shared_ptr<Ceetah::AST::Node> node, bool enter) {
@@ -145,6 +165,12 @@ void Ceetah::Builder::insertPreprocessorUndefinition(std::string whatToUndefine)
   auto undef = std::make_shared<AST::UndefinitivePreprocessorDirective>();
   undef->undefinition = whatToUndefine;
   insert(undef);
+};
+void Ceetah::Builder::insertTypeDefinition(std::string name, std::shared_ptr<Ceetah::AST::Type> type) {
+  auto def = std::make_shared<AST::TypeDefinition>();
+  def->name = name;
+  def->type = type;
+  insert(def);
 };
 
 void Ceetah::Builder::enterInsertionPoint() {

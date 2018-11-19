@@ -6,6 +6,12 @@ This project follows [semantic versioning](https://semver.org).
 ## [Unreleased]
 Nothing yet.
 
+## [0.3.0] - 2018-11-18
+### Added
+  * Function calls
+  * Type definitions
+  * Function pointer type support 👍
+
 ## [0.2.0] - 2018-11-13
 ### Added
   * Binary operations (`+`, `-`, `*`, `/`)

@@ -30,6 +30,8 @@ namespace Ceetah {
       MultiExpression,
       BinaryOperation,
       UndefinitivePreprocessorDirective,
+      FunctionCall,
+      TypeDefinition,
     };
 
     static const char* const NodeType_names[] = {
@@ -56,6 +58,8 @@ namespace Ceetah {
       "MultiExpression",
       "BinaryOperation",
       "UndefinitivePreprocessorDirective",
+      "FunctionCall",
+      "TypeDefinition",
     };
 
     enum class TypeModifierFlag: uint8_t {

@@ -12,10 +12,14 @@ namespace Ceetah {
       public:
         virtual const NodeType nodeType();
 
+        bool isFunction = false;
+        std::shared_ptr<Type> returnType;
+        std::vector<std::shared_ptr<Type>> parameters;
         std::string name;
         std::vector<uint8_t> modifiers;
 
         Type(std::string name, std::vector<uint8_t> modifiers);
+        Type(std::shared_ptr<Type> returnType, std::vector<std::shared_ptr<Type>> parameters, std::vector<uint8_t> modifiers);
 
         /**
          * Full string representation of this type, as it would be seen in code

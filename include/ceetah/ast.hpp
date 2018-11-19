@@ -27,5 +27,7 @@
 #include "ast/multi-expression.hpp"
 #include "ast/binary-operation.hpp"
 #include "ast/undefinitive-preprocessor-directive.hpp"
+#include "ast/function-call.hpp"
+#include "ast/type-definition.hpp"
 
 #endif // CEETAH_AST_HPP
