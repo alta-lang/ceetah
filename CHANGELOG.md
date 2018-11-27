@@ -6,6 +6,9 @@ This project follows [semantic versioning](https://semver.org).
 ## [Unreleased]
 Nothing yet.
 
+## [0.4.0] - 2018-11-27
+  * String literals
+
 ## [0.3.0] - 2018-11-18
 ### Added
   * Function calls

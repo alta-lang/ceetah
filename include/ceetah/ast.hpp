@@ -29,5 +29,6 @@
 #include "ast/undefinitive-preprocessor-directive.hpp"
 #include "ast/function-call.hpp"
 #include "ast/type-definition.hpp"
+#include "ast/string-literal.hpp"
 
 #endif // CEETAH_AST_HPP

@@ -32,6 +32,7 @@ namespace Ceetah {
       UndefinitivePreprocessorDirective,
       FunctionCall,
       TypeDefinition,
+      StringLiteral,
     };
 
     static const char* const NodeType_names[] = {
@@ -60,6 +61,7 @@ namespace Ceetah {
       "UndefinitivePreprocessorDirective",
       "FunctionCall",
       "TypeDefinition",
+      "StringLiteral",
     };
 
     enum class TypeModifierFlag: uint8_t {

@@ -37,5 +37,6 @@ add_library(ceetah
   "${PROJECT_SOURCE_DIR}/src/ast/undefinitive-preprocessor-directive.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/function-call.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/type-definition.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/string-literal.cpp"
 )
 target_include_directories(ceetah PUBLIC "${PROJECT_SOURCE_DIR}/include")

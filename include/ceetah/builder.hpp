@@ -97,6 +97,7 @@ namespace Ceetah {
       std::shared_ptr<AST::MultiExpression> createMultiExpression(std::vector<std::shared_ptr<AST::Expression>> expressions);
       std::shared_ptr<AST::BinaryOperation> createBinaryOperation(AST::OperatorType operation, std::shared_ptr<AST::Expression> left, std::shared_ptr<AST::Expression> right);
       std::shared_ptr<AST::FunctionCall> createFunctionCall(std::shared_ptr<AST::Expression> target, std::vector<std::shared_ptr<AST::Expression>> arguments);
+      std::shared_ptr<AST::StringLiteral> createStringLiteral(std::string value);
 
       void insert(std::shared_ptr<AST::Node> node, bool enter = false);
       void insertAfter(std::shared_ptr<AST::Node> node, bool enter = false);

@@ -93,6 +93,11 @@ std::shared_ptr<Ceetah::AST::FunctionCall> Ceetah::Builder::createFunctionCall(s
   funcCall->arguments = arguments;
   return funcCall;
 };
+std::shared_ptr<Ceetah::AST::StringLiteral> Ceetah::Builder::createStringLiteral(std::string value) {
+  auto strLit = std::make_shared<AST::StringLiteral>();
+  strLit->value = value;
+  return strLit;
+};
 
 void Ceetah::Builder::insert(std::shared_ptr<Ceetah::AST::Node> node, bool enter) {
   auto pos = insertionPoint->insert(node);
