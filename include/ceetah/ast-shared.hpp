@@ -2,6 +2,7 @@
 #define CEETAH_AST_SHARED_HPP
 
 #include <cinttypes>
+#include <memory>
 
 namespace Ceetah {
   namespace AST {
