@@ -2,10 +2,6 @@ cmake_minimum_required(VERSION 3.10)
 
 project(ceetah)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED on)
-set(CMAKE_CXX_EXTENSIONS off)
-
 add_library(ceetah
   "${PROJECT_SOURCE_DIR}/src/builder.cpp"
   "${PROJECT_SOURCE_DIR}/src/insertion-point.cpp"
@@ -40,3 +36,13 @@ add_library(ceetah
   "${PROJECT_SOURCE_DIR}/src/ast/string-literal.cpp"
 )
 target_include_directories(ceetah PUBLIC "${PROJECT_SOURCE_DIR}/include")
+
+set_target_properties(ceetah
+  PROPERTIES
+  CXX_STANDARD 17
+  CXX_STANDARD_REQUIRED on
+  CXX_EXTENSIONS off
+  ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+  LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)
