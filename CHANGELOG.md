@@ -6,6 +6,12 @@ This project follows [semantic versioning](https://semver.org).
 ## [Unreleased]
 Nothing yet.
 
+## [0.4.1] - 2018-12-03
+### Changed
+  * Build artificats are now put into their own folders in the build directory: `bin` for executables and `lib` for libraries
+### Fixed
+  * Fixed Linux builds by including the `<memory>` header when necessary
+
 ## [0.4.0] - 2018-11-27
   * String literals
 
