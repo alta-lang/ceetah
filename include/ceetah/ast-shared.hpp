@@ -34,6 +34,10 @@ namespace Ceetah {
       FunctionCall,
       TypeDefinition,
       StringLiteral,
+      ConditionalStatement,
+      Block,
+      TernaryOperation,
+      ArrayLiteral,
     };
 
     static const char* const NodeType_names[] = {
@@ -63,6 +67,10 @@ namespace Ceetah {
       "FunctionCall",
       "TypeDefinition",
       "StringLiteral",
+      "ConditionalStatement",
+      "Block",
+      "TernaryOperation",
+      "ArrayLiteral",
     };
 
     enum class TypeModifierFlag: uint8_t {

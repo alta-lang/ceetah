@@ -30,5 +30,9 @@
 #include "ast/function-call.hpp"
 #include "ast/type-definition.hpp"
 #include "ast/string-literal.hpp"
+#include "ast/conditional-statement.hpp"
+#include "ast/block.hpp"
+#include "ast/ternary-operation.hpp"
+#include "ast/array-literal.hpp"
 
 #endif // CEETAH_AST_HPP

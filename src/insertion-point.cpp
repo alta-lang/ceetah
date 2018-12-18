@@ -39,6 +39,37 @@ size_t Ceetah::InsertionPoint::insert(std::shared_ptr<Ceetah::AST::Node> newNode
     if (movePointer) {
       index++;
     }
+  } else if (nodeType == AST::NodeType::ConditionalStatement) {
+    auto cond = std::dynamic_pointer_cast<AST::ConditionalStatement>(node);
+    if (index == 0 || index == 1) {
+      auto stmt = std::dynamic_pointer_cast<AST::Statement>(newNode);
+      if (!stmt) {
+        throw InsertionException();
+      }
+      stmt->parent = cond;
+      if (index == 0) {
+        cond->primaryResult = stmt;
+      } else {
+        cond->finalAlternative = stmt;
+      }
+    } else {
+      if (cond->alternatives.size() < index - 1) {
+        cond->alternatives.resize(index - 1, { nullptr, nullptr });
+      }
+      if (auto expr = std::dynamic_pointer_cast<AST::Expression>(newNode)) {
+        cond->alternatives[index - 2].first = expr;
+      } else if (auto stmt = std::dynamic_pointer_cast<AST::Statement>(newNode)) {
+        cond->alternatives[index - 2].second = stmt;
+      }
+    }
+  } else if (nodeType == AST::NodeType::Block) {
+    auto block = std::dynamic_pointer_cast<AST::Block>(node);
+    auto stmt = std::dynamic_pointer_cast<AST::Statement>(newNode);
+    stmt->parent = block;
+    block->statements.insert(block->statements.begin() + index, stmt);
+    if (movePointer) {
+      index++;
+    }
   } else {
     throw InvalidInsertionNodeException();
   }
@@ -81,6 +112,9 @@ void Ceetah::InsertionPoint::scrollToEnd() {
   } else if (nodeType == AST::NodeType::ConditionalPreprocessorDirective) {
     auto cond = std::dynamic_pointer_cast<AST::ConditionalPreprocessorDirective>(node);
     index = cond->nodes.size();
+  } else if (nodeType == AST::NodeType::Block) {
+    auto block = std::dynamic_pointer_cast<AST::Block>(node);
+    index = block->statements.size();
   } else {
     throw InvalidInsertionNodeException();
   }
@@ -101,6 +135,9 @@ std::vector<std::shared_ptr<Ceetah::AST::Node>> Ceetah::InsertionPoint::containe
   } else if (nodeType == AST::NodeType::ConditionalPreprocessorDirective) {
     auto cond = std::dynamic_pointer_cast<AST::ConditionalPreprocessorDirective>(node);
     return cond->nodes;
+  } else if (nodeType == AST::NodeType::Block) {
+    auto block = std::dynamic_pointer_cast<AST::Block>(node);
+    return block->statements;
   } else {
     throw InvalidInsertionNodeException();
   }

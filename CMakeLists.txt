@@ -34,6 +34,10 @@ add_library(ceetah
   "${PROJECT_SOURCE_DIR}/src/ast/function-call.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/type-definition.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/string-literal.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/conditional-statement.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/block.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/ternary-operation.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/array-literal.cpp"
 )
 target_include_directories(ceetah PUBLIC "${PROJECT_SOURCE_DIR}/include")
 

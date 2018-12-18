@@ -14,6 +14,7 @@ namespace Ceetah {
       InsertionException();
   };
   class InvalidInsertionNodeException: public InsertionException {};
+  class InvalidInternalInsertionPointException: public InsertionException {};
 
   class UnimplementedException: public std::runtime_error {
     public:
@@ -98,6 +99,8 @@ namespace Ceetah {
       std::shared_ptr<AST::BinaryOperation> createBinaryOperation(AST::OperatorType operation, std::shared_ptr<AST::Expression> left, std::shared_ptr<AST::Expression> right);
       std::shared_ptr<AST::FunctionCall> createFunctionCall(std::shared_ptr<AST::Expression> target, std::vector<std::shared_ptr<AST::Expression>> arguments);
       std::shared_ptr<AST::StringLiteral> createStringLiteral(std::string value);
+      std::shared_ptr<AST::TernaryOperation> createTernaryOperation(std::shared_ptr<AST::Expression> test, std::shared_ptr<AST::Expression> primary, std::shared_ptr<AST::Expression> secondary);;
+      std::shared_ptr<AST::ArrayLiteral> createArrayLiteral(std::vector<std::shared_ptr<AST::Expression>> items, std::shared_ptr<AST::Type> type = nullptr);
 
       void insert(std::shared_ptr<AST::Node> node, bool enter = false);
       void insertAfter(std::shared_ptr<AST::Node> node, bool enter = false);
@@ -112,7 +115,9 @@ namespace Ceetah {
       void insertPreprocessorDefinition(std::string whatToDefine, std::string value = "");
       void insertExpressionStatement(std::shared_ptr<AST::Expression> expr);
       void insertPreprocessorUndefinition(std::string whatToUndefine);
-      void insertTypeDefinition(std::string name, std::shared_ptr<Ceetah::AST::Type> type);
+      void insertTypeDefinition(std::string name, std::shared_ptr<AST::Type> type);
+      void insertConditionalStatement(std::shared_ptr<AST::Expression> test);
+      void insertBlock();
 
       void enterInsertionPoint();
       void enterInsertionPoint(size_t index);
@@ -120,6 +125,9 @@ namespace Ceetah {
       void enterInsertionPoint(std::shared_ptr<AST::Node> insertionTarget);
 
       void exitInsertionPoint();
+
+      void enterConditionalAlternative(size_t altIndex = 0);
+      void enterConditionalUltimatum();
   };
 };
 

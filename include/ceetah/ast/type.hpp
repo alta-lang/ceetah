@@ -18,6 +18,12 @@ namespace Ceetah {
         std::string name;
         std::vector<uint8_t> modifiers;
 
+        // for use with `modifiers`; each index corresponds to the same index in `modifiers`
+        // 0 = no array
+        // SIZE_MAX = automatic size array
+        // 1..SIZE_MAX = fixed size array
+        size_t arraySize = 0;
+
         Type(std::string name, std::vector<uint8_t> modifiers);
         Type(std::shared_ptr<Type> returnType, std::vector<std::shared_ptr<Type>> parameters, std::vector<uint8_t> modifiers);
 

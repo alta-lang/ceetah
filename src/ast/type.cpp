@@ -42,6 +42,13 @@ std::string Ceetah::AST::Type::toString() {
       result += " const";
     }
   }
+  if (arraySize > 0) {
+    result += '[';
+    if (arraySize != SIZE_MAX) {
+      result += std::to_string(arraySize);
+    }
+    result += ']';
+  }
   return result;
 };
 

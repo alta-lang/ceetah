@@ -98,6 +98,19 @@ std::shared_ptr<Ceetah::AST::StringLiteral> Ceetah::Builder::createStringLiteral
   strLit->value = value;
   return strLit;
 };
+std::shared_ptr<Ceetah::AST::TernaryOperation> Ceetah::Builder::createTernaryOperation(std::shared_ptr<Ceetah::AST::Expression> test, std::shared_ptr<Ceetah::AST::Expression> primary, std::shared_ptr<Ceetah::AST::Expression> secondary) {
+  auto ternary = std::make_shared<AST::TernaryOperation>();
+  ternary->test = test;
+  ternary->primary = primary;
+  ternary->secondary = secondary;
+  return ternary;
+};
+std::shared_ptr<Ceetah::AST::ArrayLiteral> Ceetah::Builder::createArrayLiteral(std::vector<std::shared_ptr<Ceetah::AST::Expression>> items, std::shared_ptr<Ceetah::AST::Type> type) {
+  auto lit = std::make_shared<AST::ArrayLiteral>();
+  lit->items = items;
+  lit->type = type;
+  return lit;
+};
 
 void Ceetah::Builder::insert(std::shared_ptr<Ceetah::AST::Node> node, bool enter) {
   auto pos = insertionPoint->insert(node);
@@ -177,6 +190,15 @@ void Ceetah::Builder::insertTypeDefinition(std::string name, std::shared_ptr<Cee
   def->type = type;
   insert(def);
 };
+void Ceetah::Builder::insertConditionalStatement(std::shared_ptr<Ceetah::AST::Expression> test) {
+  auto cond = std::make_shared<AST::ConditionalStatement>();
+  cond->test = test;
+  insert(cond, true);
+};
+void Ceetah::Builder::insertBlock() {
+  auto block = std::make_shared<AST::Block>();
+  insert(block, true);
+};
 
 void Ceetah::Builder::enterInsertionPoint() {
   return enterInsertionPoint(insertionPoint->index);
@@ -193,6 +215,26 @@ void Ceetah::Builder::enterInsertionPoint(size_t index) {
   } else if (nodeType == AST::NodeType::ConditionalPreprocessorDirective) {
     auto cond = std::dynamic_pointer_cast<AST::ConditionalPreprocessorDirective>(insertionPoint->node);
     insertionPoint = std::make_shared<InsertionPoint>(insertionPoint, cond->nodes[index]);
+  } else if (nodeType == AST::NodeType::Block) {
+    auto block = std::dynamic_pointer_cast<AST::Block>(insertionPoint->node);
+    insertionPoint = std::make_shared<InsertionPoint>(insertionPoint, block->statements[index]);
+  } else if (nodeType == AST::NodeType::ConditionalStatement) {
+    auto cond = std::dynamic_pointer_cast<AST::ConditionalStatement>(insertionPoint->node);
+    std::shared_ptr<AST::Statement>* target = nullptr;
+    if (index == 0) {
+      target = &cond->primaryResult;
+    } else if (index == 1) {
+      target = &cond->finalAlternative;
+    } else {
+      if (index - 1 > cond->alternatives.size()) {
+        throw std::runtime_error("can't insert at that point in the conditional statement");
+      }
+      target = &(cond->alternatives[index - 2].second);
+    }
+    if (target == nullptr) {
+      throw std::runtime_error("whoops, can't insert that");
+    }
+    insertionPoint = std::make_shared<InsertionPoint>(insertionPoint, *target);
   }
 };
 
@@ -206,4 +248,18 @@ void Ceetah::Builder::exitInsertionPoint() {
   if (insertionPoint->parent != nullptr) {
     insertionPoint = insertionPoint->parent;
   }
+};
+
+void Ceetah::Builder::enterConditionalAlternative(size_t altIndex) {
+  if (insertionPoint->node->nodeType() != AST::NodeType::ConditionalStatement) {
+    throw std::runtime_error("current insertion target is not a conditional statement");
+  }
+  insertionPoint->index = altIndex + 2;
+};
+
+void Ceetah::Builder::enterConditionalUltimatum() {
+  if (insertionPoint->node->nodeType() != AST::NodeType::ConditionalStatement) {
+    throw std::runtime_error("current insertion target is not a conditional statement");
+  }
+  insertionPoint->index = 1;
 };
