@@ -16,13 +16,13 @@ jobs:
     displayName: "Configure project with CMake (for release)"
     condition: contains(variables['Build.SourceBranch'], 'refs/tags/')
     inputs:
-      cmakeArgs: "-DCMAKE_C_COMPILER=/usr/bin/gcc-7 -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 -DCMAKE_BUILD_TYPE=Release .."
+      cmakeArgs: '-DCMAKE_C_COMPILER=/usr/bin/gcc-7 -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(Build.ArtifactStagingDirectory)" ..'
   # otherwise, build for debug
   - task: CMake@1
     displayName: "Configure project with CMake (for debug)"
     condition: not(contains(variables['Build.SourceBranch'], 'refs/tags/'))
     inputs:
-      cmakeArgs: "-DCMAKE_C_COMPILER=/usr/bin/gcc-7 -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 -DCMAKE_BUILD_TYPE=Debug .."
+      cmakeArgs: '-DCMAKE_C_COMPILER=/usr/bin/gcc-7 -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX="$(Build.ArtifactStagingDirectory)" ..'
 
    # build it
   - task: CMake@1
@@ -30,13 +30,11 @@ jobs:
     inputs:
       cmakeArgs: "--build ."
 
-  # copy the artifacts
-  - task: CopyFiles@2
-    displayName: "Copy the artifacts to artifact directory"
+  # "install" it
+  - task: CMake@1
+    displayName: "Install project to artifact staging directory"
     inputs:
-      sourceFolder: "build"
-      contents: "**/*"
-      targetFolder: '$(Build.ArtifactStagingDirectory)/'
+      cmakeArgs: "--build . --target install"
 
   - task: ArchiveFiles@2
     condition: contains(variables['Build.SourceBranch'], 'refs/tags/')
@@ -89,7 +87,7 @@ jobs:
 
   # "install" it
   - task: CMake@1
-    displayName: "Build project"
+    displayName: "Install project to artifact staging directory"
     inputs:
       cmakeArgs: "--build . --target install"
 
@@ -142,7 +140,7 @@ jobs:
 
   # "install" it
   - task: CMake@1
-    displayName: "Build project"
+    displayName: "Install project to artifact staging directory"
     inputs:
       cmakeArgs: "--build . --target install"
 
