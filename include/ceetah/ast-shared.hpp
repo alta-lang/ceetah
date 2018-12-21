@@ -84,13 +84,25 @@ namespace Ceetah {
       Subtraction,
       Multiplication,
       Division,
+      EqualTo,
+      NotEqualTo,
+      GreaterThan,
+      LessThan,
+      GreaterThanOrEqualTo,
+      LessThanOrEqualTo,
     };
 
-    static const char OperatorType_operators[] = {
-      '+',
-      '-',
-      '*',
-      '/',
+    static const char* const OperatorType_operators[] = {
+      "+",
+      "-",
+      "*",
+      "/",
+      "==",
+      "!=",
+      ">",
+      "<",
+      ">=",
+      "<=",
     };
   };
 };

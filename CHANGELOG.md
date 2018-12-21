@@ -6,6 +6,20 @@ This project follows [semantic versioning](https://semver.org).
 ## [Unreleased]
 Nothing yet.
 
+## [0.5.0] - 2018-12-20
+### Added
+  * Conditional expression and statement support
+  * Block support
+  * Array type support (e.g. `int[9]`)
+  * More binary operations added:
+    * Equality (`==`)
+    * Inequality (`!=`)
+    * Greater than (`>`)
+    * Less than (`<`)
+    * Greater than or equal to (`>=`)
+    * Less than or equal to (`<=`)
+  * **[project change]** Add CI integration
+
 ## [0.4.1] - 2018-12-03
 ### Changed
   * Build artificats are now put into their own folders in the build directory: `bin` for executables and `lib` for libraries
