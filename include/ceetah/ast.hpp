@@ -34,5 +34,7 @@
 #include "ast/block.hpp"
 #include "ast/ternary-operation.hpp"
 #include "ast/array-literal.hpp"
+#include "ast/structure-definition.hpp"
+#include "ast/sizeof.hpp"
 
 #endif // CEETAH_AST_HPP

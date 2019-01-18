@@ -13,6 +13,7 @@ namespace Ceetah {
         virtual const NodeType nodeType();
 
         bool isFunction = false;
+        bool isStructure = false;
         std::shared_ptr<Type> returnType;
         std::vector<std::shared_ptr<Type>> parameters;
         std::string name;
@@ -24,7 +25,7 @@ namespace Ceetah {
         // 1..SIZE_MAX = fixed size array
         size_t arraySize = 0;
 
-        Type(std::string name, std::vector<uint8_t> modifiers);
+        Type(std::string name, std::vector<uint8_t> modifiers, bool isStructure = false);
         Type(std::shared_ptr<Type> returnType, std::vector<std::shared_ptr<Type>> parameters, std::vector<uint8_t> modifiers);
 
         /**

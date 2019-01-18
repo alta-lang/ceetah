@@ -9,8 +9,8 @@ Ceetah::Builder::Builder(std::shared_ptr<AST::RootNode> _root):
   insertionPoint(std::make_shared<InsertionPoint>(root))
   {};
 
-std::shared_ptr<Ceetah::AST::Type> Ceetah::Builder::createType(std::string name, std::vector<uint8_t> modifiers) {
-  return std::make_shared<AST::Type>(name, modifiers);
+std::shared_ptr<Ceetah::AST::Type> Ceetah::Builder::createType(std::string name, std::vector<uint8_t> modifiers, bool isStructure) {
+  return std::make_shared<AST::Type>(name, modifiers, isStructure);
 };
 std::shared_ptr<Ceetah::AST::Type> Ceetah::Builder::createType(std::string name, std::vector<std::vector<Ceetah::AST::TypeModifierFlag>> modifiers) {
   std::vector<uint8_t> flagModifiers;
@@ -59,12 +59,20 @@ std::shared_ptr<Ceetah::AST::Accessor> Ceetah::Builder::createAccessor(std::shar
 std::shared_ptr<Ceetah::AST::Accessor> Ceetah::Builder::createAccessor(std::string target, std::string query) {
   return createAccessor(createFetch(target), query);
 };
-std::shared_ptr<Ceetah::AST::Pointer> Ceetah::Builder::createPointer(std::shared_ptr<Ceetah::AST::Expression> target) {
+std::shared_ptr<Ceetah::AST::Expression> Ceetah::Builder::createPointer(std::shared_ptr<Ceetah::AST::Expression> target) {
+  if (target->nodeType() == AST::NodeType::Dereference) {
+    auto deref = std::dynamic_pointer_cast<AST::Dereference>(target);
+    return deref->target;
+  }
   auto pointer = std::make_shared<AST::Pointer>();
   pointer->target = target;
   return pointer;
 };
-std::shared_ptr<Ceetah::AST::Dereference> Ceetah::Builder::createDereference(std::shared_ptr<Ceetah::AST::Expression> target) {
+std::shared_ptr<Ceetah::AST::Expression> Ceetah::Builder::createDereference(std::shared_ptr<Ceetah::AST::Expression> target) {
+  if (target->nodeType() == AST::NodeType::Pointer) {
+    auto ptr = std::dynamic_pointer_cast<AST::Pointer>(target);
+    return ptr->target;
+  }
   auto deref = std::make_shared<AST::Dereference>();
   deref->target = target;
   return deref;
@@ -110,6 +118,11 @@ std::shared_ptr<Ceetah::AST::ArrayLiteral> Ceetah::Builder::createArrayLiteral(s
   lit->items = items;
   lit->type = type;
   return lit;
+};
+std::shared_ptr<Ceetah::AST::Sizeof> Ceetah::Builder::createSizeof(std::shared_ptr<Ceetah::AST::Type> target) {
+  auto expr = std::make_shared<AST::Sizeof>();
+  expr->type = target;
+  return expr;
 };
 
 void Ceetah::Builder::insert(std::shared_ptr<Ceetah::AST::Node> node, bool enter) {
@@ -198,6 +211,12 @@ void Ceetah::Builder::insertConditionalStatement(std::shared_ptr<Ceetah::AST::Ex
 void Ceetah::Builder::insertBlock() {
   auto block = std::make_shared<AST::Block>();
   insert(block, true);
+};
+void Ceetah::Builder::insertStructureDefinition(std::string name, std::vector<std::pair<std::string, std::shared_ptr<AST::Type>>> members) {
+  auto structDef = std::make_shared<AST::StructureDefinition>();
+  structDef->name = name;
+  structDef->members = members;
+  insert(structDef);
 };
 
 void Ceetah::Builder::enterInsertionPoint() {

@@ -38,6 +38,8 @@ namespace Ceetah {
       Block,
       TernaryOperation,
       ArrayLiteral,
+      StructureDefinition,
+      Sizeof,
     };
 
     static const char* const NodeType_names[] = {
@@ -71,6 +73,8 @@ namespace Ceetah {
       "Block",
       "TernaryOperation",
       "ArrayLiteral",
+      "StructureDefinition",
+      "Sizeof",
     };
 
     enum class TypeModifierFlag: uint8_t {

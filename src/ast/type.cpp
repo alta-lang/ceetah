@@ -5,9 +5,10 @@ const Ceetah::AST::NodeType Ceetah::AST::Type::nodeType() {
   return NodeType::Type;
 };
 
-Ceetah::AST::Type::Type(std::string _name, std::vector<uint8_t> _modifiers):
+Ceetah::AST::Type::Type(std::string _name, std::vector<uint8_t> _modifiers, bool _isStructure):
   name(_name),
-  modifiers(_modifiers)
+  modifiers(_modifiers),
+  isStructure(_isStructure)
   {};
 Ceetah::AST::Type::Type(std::shared_ptr<Ceetah::AST::Type> _returnType, std::vector<std::shared_ptr<Ceetah::AST::Type>> _parameters, std::vector<uint8_t> _modifiers):
   isFunction(true),
@@ -31,7 +32,10 @@ std::string Ceetah::AST::Type::toString() {
     }
     result += ')';
   } else {
-    result = name;
+    if (isStructure) {
+      result += "struct ";
+    }
+    result += name;
   }
   for (auto rit = modifiers.rbegin(); rit != modifiers.rend(); rit++) {
     uint8_t& level = *rit;

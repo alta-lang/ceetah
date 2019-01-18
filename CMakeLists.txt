@@ -38,6 +38,8 @@ add_library(ceetah
   "${PROJECT_SOURCE_DIR}/src/ast/block.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/ternary-operation.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/array-literal.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/structure-definition.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/sizeof.cpp"
 )
 target_include_directories(ceetah PUBLIC "${PROJECT_SOURCE_DIR}/include")
 

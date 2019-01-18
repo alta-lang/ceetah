@@ -83,7 +83,7 @@ namespace Ceetah {
 
       Builder(std::shared_ptr<AST::RootNode> root);
 
-      std::shared_ptr<AST::Type> createType(std::string name, std::vector<uint8_t> modifiers);
+      std::shared_ptr<AST::Type> createType(std::string name, std::vector<uint8_t> modifiers = {}, bool isStructure = false);
       std::shared_ptr<AST::Type> createType(std::string name, std::vector<std::vector<AST::TypeModifierFlag>> modifiers);
       std::shared_ptr<AST::Type> createType(std::shared_ptr<AST::Type> returnType, std::vector<std::shared_ptr<AST::Type>> parameters, std::vector<uint8_t> modifiers);
       std::shared_ptr<AST::Type> createType(std::shared_ptr<AST::Type> returnType, std::vector<std::shared_ptr<AST::Type>> parameters, std::vector<std::vector<AST::TypeModifierFlag>> modifiers);
@@ -92,8 +92,8 @@ namespace Ceetah {
       std::shared_ptr<AST::Fetch> createFetch(std::string query);
       std::shared_ptr<AST::Accessor> createAccessor(std::shared_ptr<AST::Expression> target, std::string query);
       std::shared_ptr<AST::Accessor> createAccessor(std::string target, std::string query);
-      std::shared_ptr<AST::Pointer> createPointer(std::shared_ptr<AST::Expression> target);
-      std::shared_ptr<AST::Dereference> createDereference(std::shared_ptr<AST::Expression> target);
+      std::shared_ptr<AST::Expression> createPointer(std::shared_ptr<AST::Expression> target);
+      std::shared_ptr<AST::Expression> createDereference(std::shared_ptr<AST::Expression> target);
       std::shared_ptr<AST::Assignment> createAssignment(std::shared_ptr<AST::Expression> target, std::shared_ptr<AST::Expression> value);
       std::shared_ptr<AST::MultiExpression> createMultiExpression(std::vector<std::shared_ptr<AST::Expression>> expressions);
       std::shared_ptr<AST::BinaryOperation> createBinaryOperation(AST::OperatorType operation, std::shared_ptr<AST::Expression> left, std::shared_ptr<AST::Expression> right);
@@ -101,6 +101,7 @@ namespace Ceetah {
       std::shared_ptr<AST::StringLiteral> createStringLiteral(std::string value);
       std::shared_ptr<AST::TernaryOperation> createTernaryOperation(std::shared_ptr<AST::Expression> test, std::shared_ptr<AST::Expression> primary, std::shared_ptr<AST::Expression> secondary);;
       std::shared_ptr<AST::ArrayLiteral> createArrayLiteral(std::vector<std::shared_ptr<AST::Expression>> items, std::shared_ptr<AST::Type> type = nullptr);
+      std::shared_ptr<AST::Sizeof> createSizeof(std::shared_ptr<AST::Type> target);
 
       void insert(std::shared_ptr<AST::Node> node, bool enter = false);
       void insertAfter(std::shared_ptr<AST::Node> node, bool enter = false);
@@ -118,6 +119,7 @@ namespace Ceetah {
       void insertTypeDefinition(std::string name, std::shared_ptr<AST::Type> type);
       void insertConditionalStatement(std::shared_ptr<AST::Expression> test);
       void insertBlock();
+      void insertStructureDefinition(std::string name, std::vector<std::pair<std::string, std::shared_ptr<AST::Type>>> members);
 
       void enterInsertionPoint();
       void enterInsertionPoint(size_t index);

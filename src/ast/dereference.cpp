@@ -5,7 +5,7 @@ const Ceetah::AST::NodeType Ceetah::AST::Dereference::nodeType() {
 };
 
 std::string Ceetah::AST::Dereference::toString() {
-  return "*(" + target->toString() + ')';
+  return "(*(" + target->toString() + "))";
 };
 
 bool Ceetah::AST::Dereference::operator ==(const Ceetah::AST::Dereference& other) {
