@@ -218,6 +218,11 @@ void Ceetah::Builder::insertStructureDefinition(std::string name, std::vector<st
   structDef->members = members;
   insert(structDef);
 };
+void Ceetah::Builder::insertWhileLoop(std::shared_ptr<AST::Expression> test) {
+  auto loop = std::make_shared<AST::WhileLoop>();
+  loop->test = test;
+  insert(loop, true);
+};
 
 void Ceetah::Builder::enterInsertionPoint() {
   return enterInsertionPoint(insertionPoint->index);
@@ -254,6 +259,9 @@ void Ceetah::Builder::enterInsertionPoint(size_t index) {
       throw std::runtime_error("whoops, can't insert that");
     }
     insertionPoint = std::make_shared<InsertionPoint>(insertionPoint, *target);
+  } else if (nodeType == AST::NodeType::WhileLoop) {
+    auto loop = std::dynamic_pointer_cast<AST::WhileLoop>(insertionPoint->node);
+    insertionPoint = std::make_shared<InsertionPoint>(insertionPoint, loop->body);
   }
 };
 

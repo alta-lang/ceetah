@@ -40,6 +40,7 @@ namespace Ceetah {
       ArrayLiteral,
       StructureDefinition,
       Sizeof,
+      WhileLoop,
     };
 
     static const char* const NodeType_names[] = {
@@ -75,6 +76,7 @@ namespace Ceetah {
       "ArrayLiteral",
       "StructureDefinition",
       "Sizeof",
+      "WhileLoop",
     };
 
     enum class TypeModifierFlag: uint8_t {

@@ -36,5 +36,6 @@
 #include "ast/array-literal.hpp"
 #include "ast/structure-definition.hpp"
 #include "ast/sizeof.hpp"
+#include "ast/while-loop.hpp"
 
 #endif // CEETAH_AST_HPP

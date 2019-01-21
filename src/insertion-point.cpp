@@ -70,6 +70,12 @@ size_t Ceetah::InsertionPoint::insert(std::shared_ptr<Ceetah::AST::Node> newNode
     if (movePointer) {
       index++;
     }
+  } else if (nodeType == AST::NodeType::WhileLoop) {
+    auto loop = std::dynamic_pointer_cast<AST::WhileLoop>(node);
+    auto stmt = std::dynamic_pointer_cast<AST::Statement>(newNode);
+    stmt->parent = loop;
+    loop->body = stmt;
+    index = 0;
   } else {
     throw InvalidInsertionNodeException();
   }
@@ -115,6 +121,9 @@ void Ceetah::InsertionPoint::scrollToEnd() {
   } else if (nodeType == AST::NodeType::Block) {
     auto block = std::dynamic_pointer_cast<AST::Block>(node);
     index = block->statements.size();
+  } else if (nodeType == AST::NodeType::WhileLoop) {
+    auto loop = std::dynamic_pointer_cast<AST::WhileLoop>(node);
+    index = 0;
   } else {
     throw InvalidInsertionNodeException();
   }
