@@ -41,6 +41,7 @@ namespace Ceetah {
       StructureDefinition,
       Sizeof,
       WhileLoop,
+      Cast,
     };
 
     static const char* const NodeType_names[] = {
@@ -77,6 +78,7 @@ namespace Ceetah {
       "StructureDefinition",
       "Sizeof",
       "WhileLoop",
+      "Cast",
     };
 
     enum class TypeModifierFlag: uint8_t {

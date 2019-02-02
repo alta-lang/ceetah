@@ -37,5 +37,6 @@
 #include "ast/structure-definition.hpp"
 #include "ast/sizeof.hpp"
 #include "ast/while-loop.hpp"
+#include "ast/cast.hpp"
 
 #endif // CEETAH_AST_HPP

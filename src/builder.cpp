@@ -124,6 +124,12 @@ std::shared_ptr<Ceetah::AST::Sizeof> Ceetah::Builder::createSizeof(std::shared_p
   expr->type = target;
   return expr;
 };
+std::shared_ptr<Ceetah::AST::Cast> Ceetah::Builder::createCast(std::shared_ptr<AST::Expression> target, std::shared_ptr<AST::Type> type) {
+  auto cast = std::make_shared<AST::Cast>();
+  cast->target = target;
+  cast->type = type;
+  return cast;
+};
 
 void Ceetah::Builder::insert(std::shared_ptr<Ceetah::AST::Node> node, bool enter) {
   auto pos = insertionPoint->insert(node);

@@ -102,6 +102,7 @@ namespace Ceetah {
       std::shared_ptr<AST::TernaryOperation> createTernaryOperation(std::shared_ptr<AST::Expression> test, std::shared_ptr<AST::Expression> primary, std::shared_ptr<AST::Expression> secondary);;
       std::shared_ptr<AST::ArrayLiteral> createArrayLiteral(std::vector<std::shared_ptr<AST::Expression>> items, std::shared_ptr<AST::Type> type = nullptr);
       std::shared_ptr<AST::Sizeof> createSizeof(std::shared_ptr<AST::Type> target);
+      std::shared_ptr<AST::Cast> createCast(std::shared_ptr<AST::Expression> target, std::shared_ptr<AST::Type> type);
 
       void insert(std::shared_ptr<AST::Node> node, bool enter = false);
       void insertAfter(std::shared_ptr<AST::Node> node, bool enter = false);
