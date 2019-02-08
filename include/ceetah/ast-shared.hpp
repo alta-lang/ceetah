@@ -87,6 +87,10 @@ namespace Ceetah {
       None     = 0,
       Pointer  = 1 << 0,
       Constant = 1 << 1,
+      Signed   = 1 << 2,
+      Unsigned = 1 << 3,
+      Long     = 1 << 4,
+      Short    = 1 << 5,
     };
 
     enum class OperatorType: uint8_t {
