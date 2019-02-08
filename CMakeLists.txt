@@ -42,6 +42,7 @@ add_library(ceetah
   "${PROJECT_SOURCE_DIR}/src/ast/sizeof.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/while-loop.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/cast.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/character-literal.cpp"
 )
 target_include_directories(ceetah PUBLIC "${PROJECT_SOURCE_DIR}/include")
 

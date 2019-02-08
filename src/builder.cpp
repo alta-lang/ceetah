@@ -130,6 +130,12 @@ std::shared_ptr<Ceetah::AST::Cast> Ceetah::Builder::createCast(std::shared_ptr<A
   cast->type = type;
   return cast;
 };
+std::shared_ptr<Ceetah::AST::CharacterLiteral> Ceetah::Builder::createCharacterLiteral(char value, bool escaped) {
+  auto lit = std::make_shared<AST::CharacterLiteral>();
+  lit->value = value;
+  lit->escaped = escaped;
+  return lit;
+};
 
 void Ceetah::Builder::insert(std::shared_ptr<Ceetah::AST::Node> node, bool enter) {
   auto pos = insertionPoint->insert(node);

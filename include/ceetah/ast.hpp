@@ -38,5 +38,6 @@
 #include "ast/sizeof.hpp"
 #include "ast/while-loop.hpp"
 #include "ast/cast.hpp"
+#include "ast/character-literal.hpp"
 
 #endif // CEETAH_AST_HPP
