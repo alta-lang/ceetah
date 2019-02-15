@@ -45,6 +45,18 @@ std::string Ceetah::AST::Type::toString() {
     if (level & (uint8_t)TypeModifierFlag::Constant) {
       result += " const";
     }
+    if (level & (uint8_t)TypeModifierFlag::Unsigned) {
+      result += " unsigned";
+    }
+    if (level & (uint8_t)TypeModifierFlag::Signed) {
+      result += " signed";
+    }
+    if (level & (uint8_t)TypeModifierFlag::Long) {
+      result += " long";
+    }
+    if (level & (uint8_t)TypeModifierFlag::Short) {
+      result += " short";
+    }
   }
   if (arraySize > 0) {
     result += '[';
