@@ -5,7 +5,12 @@ const Ceetah::AST::NodeType Ceetah::AST::FunctionCall::nodeType() {
 };
 
 std::string Ceetah::AST::FunctionCall::toString() {
-  std::string result = '(' + target->toString() + ")(";
+  auto result = target->toString();
+  if (!macro) {
+    result = '(' + result;
+    result += ')';
+  }
+  result += '(';
   bool isFirst = true;
   for (auto& arg: arguments) {
     if (isFirst) {
@@ -29,5 +34,6 @@ bool Ceetah::AST::FunctionCall::operator ==(const Ceetah::AST::FunctionCall& oth
       return false;
     }
   }
+  if (macro != other.macro) return false;
   return true;
 };

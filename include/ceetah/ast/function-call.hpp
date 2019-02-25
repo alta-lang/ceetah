@@ -13,6 +13,7 @@ namespace Ceetah {
 
         std::shared_ptr<Expression> target;
         std::vector<std::shared_ptr<Expression>> arguments;
+        bool macro = false;
 
         virtual std::string toString();
         virtual bool operator ==(const FunctionCall& other);

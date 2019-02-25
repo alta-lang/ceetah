@@ -95,10 +95,11 @@ std::shared_ptr<Ceetah::AST::BinaryOperation> Ceetah::Builder::createBinaryOpera
   binOp->right = right;
   return binOp;
 };
-std::shared_ptr<Ceetah::AST::FunctionCall> Ceetah::Builder::createFunctionCall(std::shared_ptr<Ceetah::AST::Expression> target, std::vector<std::shared_ptr<Ceetah::AST::Expression>> arguments) {
+std::shared_ptr<Ceetah::AST::FunctionCall> Ceetah::Builder::createFunctionCall(std::shared_ptr<Ceetah::AST::Expression> target, std::vector<std::shared_ptr<Ceetah::AST::Expression>> arguments, bool macro) {
   auto funcCall = std::make_shared<AST::FunctionCall>();
   funcCall->target = target;
   funcCall->arguments = arguments;
+  funcCall->macro = macro;
   return funcCall;
 };
 std::shared_ptr<Ceetah::AST::StringLiteral> Ceetah::Builder::createStringLiteral(std::string value) {
