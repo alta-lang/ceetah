@@ -43,6 +43,7 @@ namespace Ceetah {
       WhileLoop,
       Cast,
       CharacterLiteral,
+      UnaryOperation,
     };
 
     static const char* const NodeType_names[] = {
@@ -81,6 +82,7 @@ namespace Ceetah {
       "WhileLoop",
       "Cast",
       "CharacterLiteral",
+      "UnaryOperation",
     };
 
     enum class TypeModifierFlag: uint8_t {
@@ -104,6 +106,8 @@ namespace Ceetah {
       LessThan,
       GreaterThanOrEqualTo,
       LessThanOrEqualTo,
+      And,
+      Or,
     };
 
     static const char* const OperatorType_operators[] = {
@@ -117,6 +121,16 @@ namespace Ceetah {
       "<",
       ">=",
       "<=",
+      "&&",
+      "||",
+    };
+
+    enum class UOperatorType: uint8_t {
+      Not,
+    };
+
+    static const char* const UOperatorType_operators[] = {
+      "!",
     };
   };
 };

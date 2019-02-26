@@ -39,5 +39,6 @@
 #include "ast/while-loop.hpp"
 #include "ast/cast.hpp"
 #include "ast/character-literal.hpp"
+#include "ast/unary-operation.hpp"
 
 #endif // CEETAH_AST_HPP

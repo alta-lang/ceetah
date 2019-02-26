@@ -104,6 +104,7 @@ namespace Ceetah {
       std::shared_ptr<AST::Sizeof> createSizeof(std::shared_ptr<AST::Type> target);
       std::shared_ptr<AST::Cast> createCast(std::shared_ptr<AST::Expression> target, std::shared_ptr<AST::Type> type);
       std::shared_ptr<AST::CharacterLiteral> createCharacterLiteral(char value, bool escaped);
+      std::shared_ptr<AST::UnaryOperation> createUnaryOperation(AST::UOperatorType operation, std::shared_ptr<AST::Expression> target, bool post = false);
 
       void insert(std::shared_ptr<AST::Node> node, bool enter = false);
       void insertAfter(std::shared_ptr<AST::Node> node, bool enter = false);

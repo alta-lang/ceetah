@@ -137,6 +137,13 @@ std::shared_ptr<Ceetah::AST::CharacterLiteral> Ceetah::Builder::createCharacterL
   lit->escaped = escaped;
   return lit;
 };
+std::shared_ptr<Ceetah::AST::UnaryOperation> Ceetah::Builder::createUnaryOperation(Ceetah::AST::UOperatorType operation, std::shared_ptr<Ceetah::AST::Expression> target, bool post) {
+  auto unOp = std::make_shared<AST::UnaryOperation>();
+  unOp->type = operation;
+  unOp->target = target;
+  unOp->post = post;
+  return unOp;
+};
 
 void Ceetah::Builder::insert(std::shared_ptr<Ceetah::AST::Node> node, bool enter) {
   auto pos = insertionPoint->insert(node);
