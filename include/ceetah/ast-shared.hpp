@@ -127,10 +127,22 @@ namespace Ceetah {
 
     enum class UOperatorType: uint8_t {
       Not,
+      Plus,
+      Minus,
+      PreIncrement,
+      PostIncrement,
+      PreDecrement,
+      PostDecrement,
     };
 
     static const char* const UOperatorType_operators[] = {
       "!",
+      "+",
+      "-",
+      "++",
+      "++",
+      "--",
+      "--",
     };
   };
 };
