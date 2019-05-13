@@ -77,10 +77,11 @@ std::shared_ptr<Ceetah::AST::Expression> Ceetah::Builder::createDereference(std:
   deref->target = target;
   return deref;
 };
-std::shared_ptr<Ceetah::AST::Assignment> Ceetah::Builder::createAssignment(std::shared_ptr<Ceetah::AST::Expression> target, std::shared_ptr<Ceetah::AST::Expression> value) {
+std::shared_ptr<Ceetah::AST::Assignment> Ceetah::Builder::createAssignment(std::shared_ptr<Ceetah::AST::Expression> target, std::shared_ptr<Ceetah::AST::Expression> value, Ceetah::AST::AssignmentType type) {
   auto assign = std::make_shared<AST::Assignment>();
   assign->target = target;
   assign->value = value;
+  assign->type = type;
   return assign;
 };
 std::shared_ptr<Ceetah::AST::MultiExpression> Ceetah::Builder::createMultiExpression(std::vector<std::shared_ptr<Ceetah::AST::Expression>> expressions) {

@@ -100,6 +100,7 @@ namespace Ceetah {
       Subtraction,
       Multiplication,
       Division,
+      Modulo,
       EqualTo,
       NotEqualTo,
       GreaterThan,
@@ -115,6 +116,7 @@ namespace Ceetah {
       "-",
       "*",
       "/",
+      "%",
       "==",
       "!=",
       ">",
@@ -143,6 +145,24 @@ namespace Ceetah {
       "++",
       "--",
       "--",
+    };
+
+    enum class AssignmentType: uint8_t {
+      Simple,
+      Addition,
+      Subtraction,
+      Multiplication,
+      Division,
+      Modulo,
+    };
+
+    static const char* const AssignmentType_operators[] = {
+      "=",
+      "+=",
+      "-=",
+      "*=",
+      "/=",
+      "%=",
     };
   };
 };

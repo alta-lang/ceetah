@@ -5,7 +5,7 @@ const Ceetah::AST::NodeType Ceetah::AST::Assignment::nodeType() {
 };
 
 std::string Ceetah::AST::Assignment::toString() {
-  return "((" + target->toString() + ") = (" + value->toString() + "))";
+  return "((" + target->toString() + ") " + AssignmentType_operators[(uint8_t)type] + " (" + value->toString() + "))";
 };
 
 bool Ceetah::AST::Assignment::operator ==(const Ceetah::AST::Assignment& other) {

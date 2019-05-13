@@ -94,7 +94,7 @@ namespace Ceetah {
       std::shared_ptr<AST::Accessor> createAccessor(std::string target, std::string query);
       std::shared_ptr<AST::Expression> createPointer(std::shared_ptr<AST::Expression> target);
       std::shared_ptr<AST::Expression> createDereference(std::shared_ptr<AST::Expression> target);
-      std::shared_ptr<AST::Assignment> createAssignment(std::shared_ptr<AST::Expression> target, std::shared_ptr<AST::Expression> value);
+      std::shared_ptr<AST::Assignment> createAssignment(std::shared_ptr<AST::Expression> target, std::shared_ptr<AST::Expression> value, AST::AssignmentType type = AST::AssignmentType::Simple);
       std::shared_ptr<AST::MultiExpression> createMultiExpression(std::vector<std::shared_ptr<AST::Expression>> expressions);
       std::shared_ptr<AST::BinaryOperation> createBinaryOperation(AST::OperatorType operation, std::shared_ptr<AST::Expression> left, std::shared_ptr<AST::Expression> right);
       std::shared_ptr<AST::FunctionCall> createFunctionCall(std::shared_ptr<AST::Expression> target, std::vector<std::shared_ptr<AST::Expression>> arguments, bool macro = false);

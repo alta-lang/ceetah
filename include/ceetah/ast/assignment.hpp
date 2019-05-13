@@ -12,6 +12,7 @@ namespace Ceetah {
 
         std::shared_ptr<AST::Expression> target;
         std::shared_ptr<AST::Expression> value;
+        AssignmentType type = AssignmentType::Simple;
 
         virtual std::string toString();
         virtual bool operator ==(const Assignment& other);
