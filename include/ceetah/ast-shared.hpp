@@ -101,6 +101,11 @@ namespace Ceetah {
       Multiplication,
       Division,
       Modulo,
+      LeftShift,
+      RightShift,
+      BitwiseAnd,
+      BitwiseOr,
+      BitwiseXor,
       EqualTo,
       NotEqualTo,
       GreaterThan,
@@ -117,6 +122,11 @@ namespace Ceetah {
       "*",
       "/",
       "%",
+      "<<",
+      ">>",
+      "&",
+      "|",
+      "^",
       "==",
       "!=",
       ">",
@@ -135,6 +145,7 @@ namespace Ceetah {
       PostIncrement,
       PreDecrement,
       PostDecrement,
+      BitwiseNot,
     };
 
     static const char* const UOperatorType_operators[] = {
@@ -145,6 +156,7 @@ namespace Ceetah {
       "++",
       "--",
       "--",
+      "~",
     };
 
     enum class AssignmentType: uint8_t {
@@ -154,6 +166,11 @@ namespace Ceetah {
       Multiplication,
       Division,
       Modulo,
+      LeftShift,
+      RightShift,
+      BitwiseAnd,
+      BitwiseOr,
+      BitwiseXor,
     };
 
     static const char* const AssignmentType_operators[] = {
@@ -163,6 +180,11 @@ namespace Ceetah {
       "*=",
       "/=",
       "%=",
+      "<<=",
+      ">>=",
+      "&=",
+      "|=",
+      "^=",
     };
   };
 };
