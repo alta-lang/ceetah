@@ -3,6 +3,7 @@
 
 #include "../ast-shared.hpp"
 #include <string>
+#include <stdexcept>
 
 namespace Ceetah {
   namespace AST {
