@@ -166,11 +166,12 @@ void Ceetah::Builder::insertFunctionDeclaration(std::string name, std::vector<st
   funcDef->returnType = returnType;
   insert(funcDef);
 };
-void Ceetah::Builder::insertFunctionDefinition(std::string name, std::vector<std::tuple<std::string, std::shared_ptr<Ceetah::AST::Type>>> parameters, std::shared_ptr<Ceetah::AST::Type> returnType) {
+void Ceetah::Builder::insertFunctionDefinition(std::string name, std::vector<std::tuple<std::string, std::shared_ptr<Ceetah::AST::Type>>> parameters, std::shared_ptr<Ceetah::AST::Type> returnType, bool isStatic) {
   auto func = std::make_shared<AST::FunctionDefinition>();
   func->name = name;
   func->parameters = parameters;
   func->returnType = returnType;
+  func->isStatic = isStatic;
   insert(func, true);
 };
 void Ceetah::Builder::insertReturnDirective(std::shared_ptr<AST::Expression> value) {

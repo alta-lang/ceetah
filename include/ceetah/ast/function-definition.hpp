@@ -16,6 +16,7 @@ namespace Ceetah {
         std::vector<std::tuple<std::string, std::shared_ptr<Type>>> parameters;
         std::shared_ptr<Type> returnType;
         std::vector<std::shared_ptr<Node>> body;
+        bool isStatic = false;
 
         virtual std::string toString();
         virtual bool operator ==(const FunctionDefinition& other);

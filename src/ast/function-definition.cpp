@@ -7,6 +7,9 @@ const Ceetah::AST::NodeType Ceetah::AST::FunctionDefinition::nodeType() {
 std::string Ceetah::AST::FunctionDefinition::toString() {
   std::string result;
 
+  if (isStatic) {
+    result += "static ";
+  }
   result += returnType->toString();
   result += ' ';
   result += name;

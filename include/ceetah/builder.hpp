@@ -110,7 +110,7 @@ namespace Ceetah {
       void insertAfter(std::shared_ptr<AST::Node> node, bool enter = false);
 
       void insertFunctionDeclaration(std::string name, std::vector<std::tuple<std::string, std::shared_ptr<AST::Type>>> parameters, std::shared_ptr<AST::Type> returnType);
-      void insertFunctionDefinition(std::string name, std::vector<std::tuple<std::string, std::shared_ptr<AST::Type>>> parameters, std::shared_ptr<AST::Type> returnType);
+      void insertFunctionDefinition(std::string name, std::vector<std::tuple<std::string, std::shared_ptr<AST::Type>>> parameters, std::shared_ptr<AST::Type> returnType, bool isStatic = false);
       void insertReturnDirective(std::shared_ptr<AST::Expression> value = nullptr);
       void insertPreprocessorConditional(std::string test);
       void insertPreprocessorInclusion(std::string whatToInclude, AST::InclusionType type = AST::InclusionType::Local);
