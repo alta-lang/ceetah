@@ -63,6 +63,11 @@ std::shared_ptr<Ceetah::AST::Expression> Ceetah::Builder::createPointer(std::sha
   if (target->nodeType() == AST::NodeType::Dereference) {
     auto deref = std::dynamic_pointer_cast<AST::Dereference>(target);
     return deref->target;
+  } else if (target->nodeType() == AST::NodeType::MultiExpression) {
+    auto multi = std::dynamic_pointer_cast<AST::MultiExpression>(target);
+    auto& last = multi->expressions.back();
+    last = createPointer(last);
+    return multi;
   }
   auto pointer = std::make_shared<AST::Pointer>();
   pointer->target = target;
