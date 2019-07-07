@@ -88,7 +88,7 @@ namespace Ceetah {
       std::shared_ptr<AST::Type> createType(std::shared_ptr<AST::Type> returnType, std::vector<std::shared_ptr<AST::Type>> parameters, std::vector<uint8_t> modifiers);
       std::shared_ptr<AST::Type> createType(std::shared_ptr<AST::Type> returnType, std::vector<std::shared_ptr<AST::Type>> parameters, std::vector<std::vector<AST::TypeModifierFlag>> modifiers);
       std::shared_ptr<AST::IntegerLiteral> createIntegerLiteral(std::string raw);
-      std::shared_ptr<AST::IntegerLiteral> createIntegerLiteral(int64_t integer);
+      std::shared_ptr<AST::IntegerLiteral> createIntegerLiteral(uint64_t integer);
       std::shared_ptr<AST::Fetch> createFetch(std::string query);
       std::shared_ptr<AST::Accessor> createAccessor(std::shared_ptr<AST::Expression> target, std::string query);
       std::shared_ptr<AST::Accessor> createAccessor(std::string target, std::string query);

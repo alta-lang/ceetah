@@ -42,7 +42,7 @@ std::shared_ptr<Ceetah::AST::IntegerLiteral> Ceetah::Builder::createIntegerLiter
   intLit->raw = raw;
   return intLit;
 };
-std::shared_ptr<Ceetah::AST::IntegerLiteral> Ceetah::Builder::createIntegerLiteral(int64_t integer) {
+std::shared_ptr<Ceetah::AST::IntegerLiteral> Ceetah::Builder::createIntegerLiteral(uint64_t integer) {
   return createIntegerLiteral(std::to_string(integer));
 };
 std::shared_ptr<Ceetah::AST::Fetch> Ceetah::Builder::createFetch(std::string query) {
