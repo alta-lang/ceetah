@@ -13,6 +13,7 @@ namespace Ceetah {
 
         std::string name;
         std::vector<std::pair<std::string, std::shared_ptr<Type>>> members;
+        bool packed = false;
 
         virtual std::string toString();
         virtual bool operator ==(const StructureDefinition& other);

@@ -5,7 +5,18 @@ const Ceetah::AST::NodeType Ceetah::AST::StructureDefinition::nodeType() {
 };
 
 std::string Ceetah::AST::StructureDefinition::toString() {
-  std::string result = "struct " + name + " {";
+  std::string result = "";
+
+  if (packed) {
+    result += "#ifdef __GNUC__\n";
+    result += "#define CEETAH_PACKED_STRUCT __attribute__((__packed__))\n";
+    result += "#else\n";
+    result += "#define CEETAH_PACKED_STRUCT\n";
+    result += "#pragma pack(push, 1)\n";
+    result += "#endif // __GNUC__\n";
+  }
+  
+  result += "struct " + std::string(packed ? "CEETAH_PACKED_STRUCT " : "") + name + " {";
 
   for (auto [name, type]: members) {
     result += '\n';
@@ -16,7 +27,14 @@ std::string Ceetah::AST::StructureDefinition::toString() {
     result += '\n';
   }
 
-  result += "};";
+  result += "};\n";
+
+  if (packed) {
+    result += "#ifndef __GNUC__\n";
+    result += "#pragma pack(pop)\n";
+    result += "#endif // __GNUC__\n";
+    result += "#undef CEETAH_PACKED_STRUCT\n";
+  }
 
   return result;
 };

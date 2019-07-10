@@ -239,10 +239,11 @@ void Ceetah::Builder::insertBlock() {
   auto block = std::make_shared<AST::Block>();
   insert(block, true);
 };
-void Ceetah::Builder::insertStructureDefinition(std::string name, std::vector<std::pair<std::string, std::shared_ptr<AST::Type>>> members) {
+void Ceetah::Builder::insertStructureDefinition(std::string name, std::vector<std::pair<std::string, std::shared_ptr<AST::Type>>> members, bool packed) {
   auto structDef = std::make_shared<AST::StructureDefinition>();
   structDef->name = name;
   structDef->members = members;
+  structDef->packed = packed;
   insert(structDef);
 };
 void Ceetah::Builder::insertWhileLoop(std::shared_ptr<AST::Expression> test) {

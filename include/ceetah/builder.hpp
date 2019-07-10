@@ -122,7 +122,7 @@ namespace Ceetah {
       void insertTypeDefinition(std::string name, std::shared_ptr<AST::Type> type);
       void insertConditionalStatement(std::shared_ptr<AST::Expression> test);
       void insertBlock();
-      void insertStructureDefinition(std::string name, std::vector<std::pair<std::string, std::shared_ptr<AST::Type>>> members);
+      void insertStructureDefinition(std::string name, std::vector<std::pair<std::string, std::shared_ptr<AST::Type>>> members, bool packed = false);
       void insertWhileLoop(std::shared_ptr<AST::Expression> test);
 
       void enterInsertionPoint();
