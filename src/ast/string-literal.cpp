@@ -30,8 +30,8 @@ std::string Ceetah::AST::StringLiteral::toString() {
         result += 'n';
       } else {
         result += 'x';
-        result += hexDigits[ch >> 4];  // upper half
-        result += hexDigits[ch & 0xf]; // lower half
+        result += hexDigits[(unsigned char)ch >> 4];  // upper half
+        result += hexDigits[(unsigned char)ch & 0xf]; // lower half
       }
     }
   }

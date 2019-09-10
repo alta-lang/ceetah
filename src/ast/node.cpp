@@ -16,3 +16,15 @@ bool Ceetah::AST::Node::operator ==(const Ceetah::AST::Node& other) {
 bool Ceetah::AST::Node::operator !=(const Ceetah::AST::Node& other) {
   return !(*this == other);
 };
+
+std::string Ceetah::AST::Node::toStringWithComments() {
+  auto result = toString();
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
+};

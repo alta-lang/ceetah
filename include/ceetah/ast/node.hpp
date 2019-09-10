@@ -12,7 +12,11 @@ namespace Ceetah {
         virtual const NodeType nodeType();
 
         std::weak_ptr<Node> parent;
-        
+        std::string preComment;
+        std::string postComment;
+
+        std::string toStringWithComments();
+
         virtual std::string toString();
         virtual bool operator ==(const Node& other);
         virtual bool operator !=(const Node& other);
