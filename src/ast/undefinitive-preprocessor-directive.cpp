@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::UndefinitivePreprocessorDirective::node
 };
 
 std::string Ceetah::AST::UndefinitivePreprocessorDirective::toString() {
-  return "#undef " + undefinition;
+  auto result = "#undef " + undefinition;
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::UndefinitivePreprocessorDirective::operator ==(const Ceetah::AST::UndefinitivePreprocessorDirective& other) {

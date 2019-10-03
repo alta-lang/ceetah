@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::TernaryOperation::nodeType() {
 };
 
 std::string Ceetah::AST::TernaryOperation::toString() {
-  return "((" + test->toString() + ") ? (" + primary->toString() + ") : (" + secondary->toString() + "))";
+  auto result = "((" + test->toString() + ") ? (" + primary->toString() + ") : (" + secondary->toString() + "))";
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::TernaryOperation::operator ==(const Ceetah::AST::TernaryOperation& other) {

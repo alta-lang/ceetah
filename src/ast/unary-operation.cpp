@@ -5,11 +5,21 @@ const Ceetah::AST::NodeType Ceetah::AST::UnaryOperation::nodeType() {
 };
 
 std::string Ceetah::AST::UnaryOperation::toString() {
+  std::string result;
+
   if (post) {
-    return "((" + target->toString() + ')' + UOperatorType_operators[(uint8_t)type] + ')';
+    result = "((" + target->toString() + ')' + UOperatorType_operators[(uint8_t)type] + ')';
   } else {
-    return std::string("(") + UOperatorType_operators[(uint8_t)type] + '(' + target->toString() + "))";
+    result = std::string("(") + UOperatorType_operators[(uint8_t)type] + '(' + target->toString() + "))";
   }
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::UnaryOperation::operator ==(const Ceetah::AST::UnaryOperation& other) {

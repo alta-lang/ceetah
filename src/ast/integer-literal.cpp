@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::IntegerLiteral::nodeType() {
 };
 
 std::string Ceetah::AST::IntegerLiteral::toString() {
-  return raw;
+  auto result = raw;
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::IntegerLiteral::operator ==(const Ceetah::AST::IntegerLiteral& other) {

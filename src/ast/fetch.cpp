@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::Fetch::nodeType() {
 };
 
 std::string Ceetah::AST::Fetch::toString() {
-  return query;
+  auto result = query;
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::Fetch::operator ==(const Ceetah::AST::Fetch& other) {

@@ -37,6 +37,12 @@ std::string Ceetah::AST::FunctionDefinition::toString() {
   }
   result += "};";
 
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
   return result;
 };
 

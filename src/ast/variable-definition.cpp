@@ -13,6 +13,12 @@ std::string Ceetah::AST::VariableDefinition::toString() {
 
   result += ';';
 
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
   return result;
 };
 

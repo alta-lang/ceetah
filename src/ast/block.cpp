@@ -15,6 +15,13 @@ std::string Ceetah::AST::Block::toString() {
     result += stmt->toString() + '\n';
   }
   result += "}";
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
   return result;
 };
 

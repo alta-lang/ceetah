@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::Dereference::nodeType() {
 };
 
 std::string Ceetah::AST::Dereference::toString() {
-  return "(*(" + target->toString() + "))";
+  auto result = "(*(" + target->toString() + "))";
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::Dereference::operator ==(const Ceetah::AST::Dereference& other) {

@@ -26,6 +26,12 @@ std::string Ceetah::AST::FunctionDeclaration::toString() {
 
   result += ");";
 
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
   return result;
 };
 

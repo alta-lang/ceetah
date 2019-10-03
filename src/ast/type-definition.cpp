@@ -5,8 +5,10 @@ const Ceetah::AST::NodeType Ceetah::AST::TypeDefinition::nodeType() {
 };
 
 std::string Ceetah::AST::TypeDefinition::toString() {
+  std::string result;
+
   if (type->isFunction) {
-    std::string result = "typedef " + type->returnType->toString() + " (*" + name + ")(";
+    result = "typedef " + type->returnType->toString() + " (*" + name + ")(";
     bool isFirst = true;
     for (auto& param: type->parameters) {
       if (isFirst) {
@@ -17,10 +19,17 @@ std::string Ceetah::AST::TypeDefinition::toString() {
       result += param->toString();
     }
     result += ");";
-    return result;
   } else {
-    return "typedef " + type->toString() + ' ' + name + ";";
+    result = "typedef " + type->toString() + ' ' + name + ";";
   }
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::TypeDefinition::operator ==(const Ceetah::AST::TypeDefinition& other) {

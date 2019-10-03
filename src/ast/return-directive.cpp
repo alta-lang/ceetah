@@ -5,11 +5,21 @@ const Ceetah::AST::NodeType Ceetah::AST::ReturnDirective::nodeType() {
 };
 
 std::string Ceetah::AST::ReturnDirective::toString() {
+  std::string result;
+
   if (value != nullptr) {
-    return "return " + value->toString() + ";";
+    result = "return " + value->toString() + ";";
   } else {
-    return "return;";
+    result = "return;";
   }
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::ReturnDirective::operator ==(const Ceetah::AST::ReturnDirective& other) {

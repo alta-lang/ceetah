@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::Sizeof::nodeType() {
 };
 
 std::string Ceetah::AST::Sizeof::toString() {
-  return "sizeof(" + type->toString() + ")";
+  auto result = "sizeof(" + type->toString() + ")";
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::Sizeof::operator ==(const Ceetah::AST::Sizeof& other) {

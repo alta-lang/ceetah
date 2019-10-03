@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::BinaryOperation::nodeType() {
 };
 
 std::string Ceetah::AST::BinaryOperation::toString() {
-  return "((" + left->toString() + ") " + OperatorType_operators[(uint8_t)type] + " (" + right->toString() + "))";
+  auto result = "((" + left->toString() + ") " + OperatorType_operators[(uint8_t)type] + " (" + right->toString() + "))";
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::BinaryOperation::operator ==(const Ceetah::AST::BinaryOperation& other) {

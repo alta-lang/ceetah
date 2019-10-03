@@ -38,6 +38,12 @@ std::string Ceetah::AST::StringLiteral::toString() {
 
   result += '"';
 
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
   return result;
 };
 

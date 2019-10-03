@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::Accessor::nodeType() {
 };
 
 std::string Ceetah::AST::Accessor::toString() {
-  return target->toString() + '.' + query;
+  auto result = target->toString() + '.' + query;
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 std::shared_ptr<Ceetah::AST::Accessor> Ceetah::AST::Accessor::access(std::string subquery) {

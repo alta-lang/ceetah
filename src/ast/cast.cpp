@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::Cast::nodeType() {
 };
 
 std::string Ceetah::AST::Cast::toString() {
-  return "((" + type->toString() + ')' + target->toString() + ')';
+  auto result = "((" + type->toString() + ')' + target->toString() + ')';
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::Cast::operator ==(const Ceetah::AST::Cast& other) {

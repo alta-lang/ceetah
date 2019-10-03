@@ -30,6 +30,12 @@ std::string Ceetah::AST::ArrayLiteral::toString() {
   
   result += '}';
 
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
   return result;
 };
 

@@ -65,6 +65,13 @@ std::string Ceetah::AST::Type::toString() {
     }
     result += ']';
   }
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
   return result;
 };
 

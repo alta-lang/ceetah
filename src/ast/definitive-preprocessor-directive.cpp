@@ -9,6 +9,13 @@ std::string Ceetah::AST::DefinitivePreprocessorDirective::toString() {
   if (value != "") {
     result += ' ' + value;
   }
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
   return result;
 };
 

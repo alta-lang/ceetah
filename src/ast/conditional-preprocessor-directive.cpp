@@ -11,6 +11,13 @@ std::string Ceetah::AST::ConditionalPreprocessorDirective::toString() {
     result += "\n";
   }
   result += "#endif // " + test;
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
   return result;
 };
 

@@ -36,6 +36,12 @@ std::string Ceetah::AST::StructureDefinition::toString() {
     result += "#undef CEETAH_PACKED_STRUCT\n";
   }
 
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
   return result;
 };
 

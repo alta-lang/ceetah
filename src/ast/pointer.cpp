@@ -6,7 +6,15 @@ const Ceetah::AST::NodeType Ceetah::AST::Pointer::nodeType() {
 };
 
 std::string Ceetah::AST::Pointer::toString() {
-  return "(&(" + target->toString() + "))";
+  auto result = "(&(" + target->toString() + "))";
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::Pointer::operator ==(const Ceetah::AST::Pointer& other) {

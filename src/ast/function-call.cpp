@@ -21,6 +21,13 @@ std::string Ceetah::AST::FunctionCall::toString() {
     result += arg->toString();
   }
   result += ')';
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
   return result;
 };
 

@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::Assignment::nodeType() {
 };
 
 std::string Ceetah::AST::Assignment::toString() {
-  return "((" + target->toString() + ") " + AssignmentType_operators[(uint8_t)type] + " (" + value->toString() + "))";
+  auto result = "((" + target->toString() + ") " + AssignmentType_operators[(uint8_t)type] + " (" + value->toString() + "))";
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::Assignment::operator ==(const Ceetah::AST::Assignment& other) {

@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::ExpressionStatement::nodeType() {
 };
 
 std::string Ceetah::AST::ExpressionStatement::toString() {
-  return expression->toString() + ";";
+  auto result = expression->toString() + ";";
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::ExpressionStatement::operator ==(const Ceetah::AST::ExpressionStatement& other) {

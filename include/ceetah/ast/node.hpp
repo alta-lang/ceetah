@@ -15,8 +15,6 @@ namespace Ceetah {
         std::string preComment;
         std::string postComment;
 
-        std::string toStringWithComments();
-
         virtual std::string toString();
         virtual bool operator ==(const Node& other);
         virtual bool operator !=(const Node& other);

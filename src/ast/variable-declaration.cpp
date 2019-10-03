@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::VariableDeclaration::nodeType() {
 };
 
 std::string Ceetah::AST::VariableDeclaration::toString() {
-  return "extern " + type->toString() + " " + name + ";";
+  auto result = "extern " + type->toString() + " " + name + ";";
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::VariableDeclaration::operator ==(const Ceetah::AST::VariableDeclaration& other) {

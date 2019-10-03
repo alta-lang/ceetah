@@ -5,7 +5,15 @@ const Ceetah::AST::NodeType Ceetah::AST::WhileLoop::nodeType() {
 };
 
 std::string Ceetah::AST::WhileLoop::toString() {
-  return "while (" + test->toString() + ") " + body->toString() + ";";
+  auto result = "while (" + test->toString() + ") " + body->toString() + ";";
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::WhileLoop::operator ==(const Ceetah::AST::WhileLoop& other) {

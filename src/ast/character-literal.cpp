@@ -10,6 +10,13 @@ std::string Ceetah::AST::CharacterLiteral::toString() {
   if (escaped) result += '\\';
   result += value;
   result += '\'';
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
   return result;
 };
 

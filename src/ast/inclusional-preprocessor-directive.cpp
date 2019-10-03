@@ -5,10 +5,18 @@ const Ceetah::AST::NodeType Ceetah::AST::InclusionalPreprocessorDirective::nodeT
 };
 
 std::string Ceetah::AST::InclusionalPreprocessorDirective::toString() {
-  return std::string("#include ") +
-         (type == InclusionType::Computed ? ' ' : (type == InclusionType::Local ? '\"' : '<')) +
-         includeQuery +
-         (type == InclusionType::Computed ? ' ' : (type == InclusionType::Local ? '\"' : '>'));
+  auto result = std::string("#include ") +
+                (type == InclusionType::Computed ? ' ' : (type == InclusionType::Local ? '\"' : '<')) +
+                includeQuery +
+                (type == InclusionType::Computed ? ' ' : (type == InclusionType::Local ? '\"' : '>'));
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };
 
 bool Ceetah::AST::InclusionalPreprocessorDirective::operator ==(const Ceetah::AST::InclusionalPreprocessorDirective& other) {
