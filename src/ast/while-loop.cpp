@@ -5,7 +5,9 @@ const Ceetah::AST::NodeType Ceetah::AST::WhileLoop::nodeType() {
 };
 
 std::string Ceetah::AST::WhileLoop::toString() {
-  auto result = "while (" + test->toString() + ") " + body->toString() + ";";
+  auto result = "while (" + test->toString() + ") ";
+  if (newlineOnExpressions) result += '\n';
+  result += body->toString() + ";";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

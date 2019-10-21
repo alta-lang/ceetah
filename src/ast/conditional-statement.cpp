@@ -5,14 +5,20 @@ const Ceetah::AST::NodeType Ceetah::AST::ConditionalStatement::nodeType() {
 };
 
 std::string Ceetah::AST::ConditionalStatement::toString() {
-  std::string result = "if (" + test->toString() + ") " + primaryResult->toString();
+  std::string result = "if (" + test->toString() + ") ";
+  if (newlineOnExpressions) result += '\n';
+  result += primaryResult->toString();
 
   for (auto& [altTest, altResult]: alternatives) {
-    result += " else if (" + altTest->toString() + ") " + altResult->toString();
+    result += " else if (" + altTest->toString() + ") ";
+    if (newlineOnExpressions) result += '\n';
+    result += altResult->toString();
   }
 
   if (finalAlternative) {
-    result += " else " + finalAlternative->toString();
+    result += " else ";
+    if (newlineOnExpressions) result += '\n';
+    result += finalAlternative->toString();
   }
 
   result += ';';

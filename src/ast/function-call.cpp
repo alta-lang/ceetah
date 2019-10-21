@@ -13,6 +13,7 @@ std::string Ceetah::AST::FunctionCall::toString() {
   result += '(';
   bool isFirst = true;
   for (auto& arg: arguments) {
+    if (newlineOnExpressions) result += '\n';
     if (isFirst) {
       isFirst = false;
     } else {
@@ -20,6 +21,7 @@ std::string Ceetah::AST::FunctionCall::toString() {
     }
     result += arg->toString();
   }
+  if (newlineOnExpressions) result += '\n';
   result += ')';
 
   if (!preComment.empty())

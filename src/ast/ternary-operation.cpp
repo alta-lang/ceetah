@@ -5,7 +5,11 @@ const Ceetah::AST::NodeType Ceetah::AST::TernaryOperation::nodeType() {
 };
 
 std::string Ceetah::AST::TernaryOperation::toString() {
-  auto result = "((" + test->toString() + ") ? (" + primary->toString() + ") : (" + secondary->toString() + "))";
+  auto result = "((" + test->toString() + ") ?";
+  if (newlineOnExpressions) result += '\n';
+  result += '(' + primary->toString() + ") : ";
+  if (newlineOnExpressions) result += '\n';
+  result += '(' + secondary->toString() + "))";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

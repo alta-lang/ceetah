@@ -11,6 +11,7 @@ std::string Ceetah::AST::MultiExpression::toString() {
 
   bool isFirst = true;
   for (auto& expr: expressions) {
+    if (newlineOnExpressions) result += '\n';
     if (isFirst) {
       isFirst = false;
     } else {
@@ -19,6 +20,7 @@ std::string Ceetah::AST::MultiExpression::toString() {
     result += '(' + expr->toString() + ')';
   }
 
+  if (newlineOnExpressions) result += '\n';
   result += ')';
 
   if (!preComment.empty())

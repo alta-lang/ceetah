@@ -5,7 +5,11 @@ const Ceetah::AST::NodeType Ceetah::AST::BinaryOperation::nodeType() {
 };
 
 std::string Ceetah::AST::BinaryOperation::toString() {
-  auto result = "((" + left->toString() + ") " + OperatorType_operators[(uint8_t)type] + " (" + right->toString() + "))";
+  auto result = "((" + left->toString() + ") " + OperatorType_operators[(uint8_t)type];
+
+  if (newlineOnExpressions) result += '\n';
+
+  result += " (" + right->toString() + "))";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

@@ -47,6 +47,16 @@ add_library(ceetah
 )
 target_include_directories(ceetah PUBLIC "${PROJECT_SOURCE_DIR}/include")
 
+# credit to Austin Lasher (https://medium.com/@alasher/colored-c-compiler-output-with-ninja-clang-gcc-10bfe7f2b949)
+option(FORCE_COLORED_OUTPUT "Always produce ANSI-colored output (GNU/Clang only)." TRUE)
+if(${FORCE_COLORED_OUTPUT})
+  if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    target_compile_options(ceetah PRIVATE -fdiagnostics-color=always)
+  elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
+    target_compile_options(ceetah PRIVATE -fcolor-diagnostics)
+  endif()
+endif()
+
 set_target_properties(ceetah
   PROPERTIES
   CXX_STANDARD 17

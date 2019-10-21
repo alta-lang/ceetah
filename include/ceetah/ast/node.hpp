@@ -7,6 +7,8 @@
 
 namespace Ceetah {
   namespace AST {
+    extern bool newlineOnExpressions;
+
     class Node {
       public:
         virtual const NodeType nodeType();

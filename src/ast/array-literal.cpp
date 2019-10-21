@@ -14,9 +14,11 @@ std::string Ceetah::AST::ArrayLiteral::toString() {
   }
 
   result += '{';
-  
+
   bool isFirst = true;
   for (auto& item: items) {
+    if (newlineOnExpressions) result += '\n';
+
     if (isFirst) {
       isFirst = false;
     } else {
@@ -27,7 +29,9 @@ std::string Ceetah::AST::ArrayLiteral::toString() {
     result += item->toString();
     result += ')';
   }
-  
+
+  if (newlineOnExpressions) result += '\n';
+
   result += '}';
 
   if (!preComment.empty())

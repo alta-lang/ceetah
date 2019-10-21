@@ -1,5 +1,11 @@
 #include "../../include/ceetah/ast/node.hpp"
 
+namespace Ceetah {
+  namespace AST {
+    bool newlineOnExpressions = false;
+  };
+};
+
 const Ceetah::AST::NodeType Ceetah::AST::Node::nodeType() {
   return NodeType::Node;
 };

@@ -5,7 +5,11 @@ const Ceetah::AST::NodeType Ceetah::AST::Assignment::nodeType() {
 };
 
 std::string Ceetah::AST::Assignment::toString() {
-  auto result = "((" + target->toString() + ") " + AssignmentType_operators[(uint8_t)type] + " (" + value->toString() + "))";
+  auto result = "((" + target->toString() + ") " + AssignmentType_operators[(uint8_t)type];
+
+  if (newlineOnExpressions) result += '\n';
+
+  result += " (" + value->toString() + "))";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;
