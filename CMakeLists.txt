@@ -44,6 +44,8 @@ add_library(ceetah
   "${PROJECT_SOURCE_DIR}/src/ast/cast.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/character-literal.cpp"
   "${PROJECT_SOURCE_DIR}/src/ast/unary-operation.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/goto-directive.cpp"
+  "${PROJECT_SOURCE_DIR}/src/ast/label.cpp"
 )
 target_include_directories(ceetah PUBLIC "${PROJECT_SOURCE_DIR}/include")
 

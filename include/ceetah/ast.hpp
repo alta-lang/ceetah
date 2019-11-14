@@ -40,5 +40,7 @@
 #include "ast/cast.hpp"
 #include "ast/character-literal.hpp"
 #include "ast/unary-operation.hpp"
+#include "ast/goto-directive.hpp"
+#include "ast/label.hpp"
 
 #endif // CEETAH_AST_HPP

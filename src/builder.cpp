@@ -251,6 +251,16 @@ void Ceetah::Builder::insertWhileLoop(std::shared_ptr<AST::Expression> test) {
   loop->test = test;
   insert(loop, true);
 };
+void Ceetah::Builder::insertGoto(std::string label) {
+  auto dir = std::make_shared<AST::GotoDirective>();
+  dir->label = label;
+  insert(dir);
+};
+void Ceetah::Builder::insertLabel(std::string label) {
+  auto lab = std::make_shared<AST::Label>();
+  lab->label = label;
+  insert(lab);
+};
 
 void Ceetah::Builder::enterInsertionPoint() {
   return enterInsertionPoint(insertionPoint->index);

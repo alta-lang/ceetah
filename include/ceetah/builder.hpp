@@ -124,6 +124,8 @@ namespace Ceetah {
       void insertBlock();
       void insertStructureDefinition(std::string name, std::vector<std::pair<std::string, std::shared_ptr<AST::Type>>> members, bool packed = false);
       void insertWhileLoop(std::shared_ptr<AST::Expression> test);
+      void insertGoto(std::string label);
+      void insertLabel(std::string label);
 
       void enterInsertionPoint();
       void enterInsertionPoint(size_t index);

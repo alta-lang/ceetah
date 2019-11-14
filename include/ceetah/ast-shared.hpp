@@ -44,6 +44,8 @@ namespace Ceetah {
       Cast,
       CharacterLiteral,
       UnaryOperation,
+      GotoDirective,
+      Label,
     };
 
     static const char* const NodeType_names[] = {
@@ -83,6 +85,8 @@ namespace Ceetah {
       "Cast",
       "CharacterLiteral",
       "UnaryOperation",
+      "GotoDirective",
+      "Label",
     };
 
     enum class TypeModifierFlag: uint8_t {
