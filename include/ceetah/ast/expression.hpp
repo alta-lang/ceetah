@@ -7,7 +7,9 @@ namespace Ceetah {
   namespace AST {
     class Expression: public Node {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
     };
   };
 };

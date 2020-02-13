@@ -9,14 +9,16 @@ namespace Ceetah {
   namespace AST {
     class FunctionCall: public Expression {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         std::shared_ptr<Expression> target;
         std::vector<std::shared_ptr<Expression>> arguments;
         bool macro = false;
 
-        virtual std::string toString();
-        virtual bool operator ==(const FunctionCall& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const FunctionCall& other) const;
     };
   };
 };

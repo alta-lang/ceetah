@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/function-call.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::FunctionCall::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::FunctionCall::nodeType() const {
   return NodeType::FunctionCall;
 };
 
-std::string Ceetah::AST::FunctionCall::toString() {
+std::string Ceetah::AST::FunctionCall::toString() const {
   auto result = target->toString();
   if (!macro) {
     result = '(' + result;
@@ -33,7 +33,7 @@ std::string Ceetah::AST::FunctionCall::toString() {
   return result;
 };
 
-bool Ceetah::AST::FunctionCall::operator ==(const Ceetah::AST::FunctionCall& other) {
+bool Ceetah::AST::FunctionCall::operator ==(const Ceetah::AST::FunctionCall& other) const {
   if (arguments.size() != other.arguments.size()) {
     return false;
   }
@@ -45,4 +45,18 @@ bool Ceetah::AST::FunctionCall::operator ==(const Ceetah::AST::FunctionCall& oth
   }
   if (macro != other.macro) return false;
   return true;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::FunctionCall::clone() const {
+  auto node = std::make_shared<Ceetah::AST::FunctionCall>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::FunctionCall::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::FunctionCall>(_node);
+  Expression::cloneTo(node);
+  CEETAH_AST_CLONE_CHILD(target);
+  CEETAH_AST_CLONE_CHILDREN(arguments);
+  node->macro = macro;
 };

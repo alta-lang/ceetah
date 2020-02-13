@@ -8,13 +8,15 @@ namespace Ceetah {
   namespace AST {
     class DefinitivePreprocessorDirective: public PreprocessorDirective {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         std::string definition;
         std::string value = "";
 
-        virtual std::string toString();
-        virtual bool operator ==(const DefinitivePreprocessorDirective& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const DefinitivePreprocessorDirective& other) const;
     };
   };
 };

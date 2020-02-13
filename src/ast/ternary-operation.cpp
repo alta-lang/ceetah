@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/ternary-operation.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::TernaryOperation::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::TernaryOperation::nodeType() const {
   return NodeType::TernaryOperation;
 };
 
-std::string Ceetah::AST::TernaryOperation::toString() {
+std::string Ceetah::AST::TernaryOperation::toString() const {
   auto result = "((" + test->toString() + ") ?";
   if (newlineOnExpressions) result += '\n';
   result += '(' + primary->toString() + ") : ";
@@ -20,8 +20,22 @@ std::string Ceetah::AST::TernaryOperation::toString() {
   return result;
 };
 
-bool Ceetah::AST::TernaryOperation::operator ==(const Ceetah::AST::TernaryOperation& other) {
+bool Ceetah::AST::TernaryOperation::operator ==(const Ceetah::AST::TernaryOperation& other) const {
   if (*test != *other.test) return false;
   if (*primary != *other.primary) return false;
   return *secondary == *other.secondary;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::TernaryOperation::clone() const {
+  auto node = std::make_shared<Ceetah::AST::TernaryOperation>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::TernaryOperation::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::TernaryOperation>(_node);
+  Expression::cloneTo(node);
+  CEETAH_AST_CLONE_CHILD(test);
+  CEETAH_AST_CLONE_CHILD(primary);
+  CEETAH_AST_CLONE_CHILD(secondary);
 };

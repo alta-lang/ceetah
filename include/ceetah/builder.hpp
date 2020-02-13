@@ -45,6 +45,8 @@ namespace Ceetah {
       [[deprecated("Ceetah::InsertionPoint.insertAfter(Ceetah::AST::Node*, Ceetah::AST::Node*, bool?) is currently unimplemented")]]
       size_t insertAfter(std::shared_ptr<AST::Node> node, std::shared_ptr<AST::Node> referencePoint, bool movePointer = true);
 
+      std::shared_ptr<AST::Node> remove(bool movePointer = true);
+
       void scrollToStart();
       void scrollToEnd();
       void scrollTo(std::shared_ptr<AST::Node> node);

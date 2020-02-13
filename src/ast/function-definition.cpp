@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/function-definition.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::FunctionDefinition::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::FunctionDefinition::nodeType() const {
   return NodeType::FunctionDefinition;
 };
 
-std::string Ceetah::AST::FunctionDefinition::toString() {
+std::string Ceetah::AST::FunctionDefinition::toString() const {
   std::string result;
 
   if (isStatic) {
@@ -46,7 +46,7 @@ std::string Ceetah::AST::FunctionDefinition::toString() {
   return result;
 };
 
-bool Ceetah::AST::FunctionDefinition::operator ==(const Ceetah::AST::FunctionDefinition& other) {
+bool Ceetah::AST::FunctionDefinition::operator ==(const Ceetah::AST::FunctionDefinition& other) const {
   if (other.name != name) return false;
 
   if (other.parameters.size() != parameters.size()) return false;
@@ -81,4 +81,28 @@ bool Ceetah::AST::FunctionDefinition::operator ==(const Ceetah::AST::FunctionDef
   }
 
   return true;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::FunctionDefinition::clone() const {
+  auto node = std::make_shared<Ceetah::AST::FunctionDefinition>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::FunctionDefinition::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::FunctionDefinition>(_node);
+  Statement::cloneTo(node);
+  node->name = name;
+  for (size_t i = 0; i < parameters.size(); ++i) {
+    node->parameters.emplace_back(
+      std::get<0>(parameters[i]),
+      std::get<1>(parameters[i]) ? std::dynamic_pointer_cast<typename std::tuple_element<1, decltype(node->parameters)::value_type>::type::element_type>(std::get<1>(parameters[i])->clone()) : nullptr
+    );
+    if (std::get<1>(node->parameters[i])) {
+      std::get<1>(node->parameters[i])->parent = node;
+    }
+  }
+  CEETAH_AST_CLONE_CHILD(returnType);
+  CEETAH_AST_CLONE_CHILDREN(body);
+  node->isStatic = isStatic;
 };

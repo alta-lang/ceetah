@@ -14,13 +14,15 @@ namespace Ceetah {
 
     class InclusionalPreprocessorDirective: public PreprocessorDirective {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         std::string includeQuery;
         InclusionType type;
 
-        virtual std::string toString();
-        virtual bool operator ==(const InclusionalPreprocessorDirective& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const InclusionalPreprocessorDirective& other) const;
     };
   };
 };

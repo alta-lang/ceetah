@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/unary-operation.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::UnaryOperation::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::UnaryOperation::nodeType() const {
   return NodeType::UnaryOperation;
 };
 
-std::string Ceetah::AST::UnaryOperation::toString() {
+std::string Ceetah::AST::UnaryOperation::toString() const {
   std::string result;
 
   if (post) {
@@ -22,7 +22,21 @@ std::string Ceetah::AST::UnaryOperation::toString() {
   return result;
 };
 
-bool Ceetah::AST::UnaryOperation::operator ==(const Ceetah::AST::UnaryOperation& other) {
+bool Ceetah::AST::UnaryOperation::operator ==(const Ceetah::AST::UnaryOperation& other) const {
   if (type != other.type) return false;
   return *target == *other.target;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::UnaryOperation::clone() const {
+  auto node = std::make_shared<Ceetah::AST::UnaryOperation>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::UnaryOperation::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::UnaryOperation>(_node);
+  Expression::cloneTo(node);
+  node->type = type;
+  node->post = post;
+  CEETAH_AST_CLONE_CHILD(target);
 };

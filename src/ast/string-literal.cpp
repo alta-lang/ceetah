@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/string-literal.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::StringLiteral::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::StringLiteral::nodeType() const {
   return NodeType::StringLiteral;
 };
 
-std::string Ceetah::AST::StringLiteral::toString() {
+std::string Ceetah::AST::StringLiteral::toString() const {
   std::string result;
 
   result += '"';
@@ -47,6 +47,18 @@ std::string Ceetah::AST::StringLiteral::toString() {
   return result;
 };
 
-bool Ceetah::AST::StringLiteral::operator ==(const Ceetah::AST::StringLiteral& other) {
+bool Ceetah::AST::StringLiteral::operator ==(const Ceetah::AST::StringLiteral& other) const {
   return value == other.value;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::StringLiteral::clone() const {
+  auto node = std::make_shared<Ceetah::AST::StringLiteral>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::StringLiteral::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::StringLiteral>(_node);
+  Expression::cloneTo(node);
+  node->value = value;
 };

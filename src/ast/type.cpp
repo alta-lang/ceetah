@@ -1,10 +1,12 @@
 #include "../../include/ceetah/ast/type.hpp"
 #include <cinttypes>
 
-const Ceetah::AST::NodeType Ceetah::AST::Type::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::Type::nodeType() const {
   return NodeType::Type;
 };
 
+Ceetah::AST::Type::Type()
+  {};
 Ceetah::AST::Type::Type(std::string _name, std::vector<uint8_t> _modifiers, bool _isStructure):
   name(_name),
   modifiers(_modifiers),
@@ -17,7 +19,7 @@ Ceetah::AST::Type::Type(std::shared_ptr<Ceetah::AST::Type> _returnType, std::vec
   modifiers(_modifiers)
   {};
 
-std::string Ceetah::AST::Type::toString() {
+std::string Ceetah::AST::Type::toString() const {
   std::string result;
   if (isFunction) {
     result = returnType->toString() + "(*)(";
@@ -38,7 +40,7 @@ std::string Ceetah::AST::Type::toString() {
     result += name;
   }
   for (auto rit = modifiers.rbegin(); rit != modifiers.rend(); rit++) {
-    uint8_t& level = *rit;
+    auto& level = *rit;
     if (level & (uint8_t)TypeModifierFlag::Pointer) {
       result += " *";
     }
@@ -75,7 +77,7 @@ std::string Ceetah::AST::Type::toString() {
   return result;
 };
 
-bool Ceetah::AST::Type::operator ==(const Ceetah::AST::Type& other) {
+bool Ceetah::AST::Type::operator ==(const Ceetah::AST::Type& other) const {
   if (other.name != name) return false;
   if (other.modifiers.size() != modifiers.size()) return false;
   bool modsEqual = true;
@@ -86,4 +88,22 @@ bool Ceetah::AST::Type::operator ==(const Ceetah::AST::Type& other) {
     if (!modsEqual) break;
   }
   return modsEqual;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::Type::clone() const {
+  auto node = std::make_shared<Ceetah::AST::Type>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::Type::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::Type>(_node);
+  Node::cloneTo(node);
+  node->isFunction = isFunction;
+  node->isStructure = isStructure;
+  CEETAH_AST_CLONE_CHILD(returnType);
+  CEETAH_AST_CLONE_CHILDREN(parameters);
+  node->name = name;
+  node->modifiers = modifiers;
+  node->arraySize = arraySize;
 };

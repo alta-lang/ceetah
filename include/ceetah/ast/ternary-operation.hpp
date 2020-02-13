@@ -7,15 +7,17 @@
 namespace Ceetah {
   namespace AST {
     class TernaryOperation: public Expression {
-    public:
-      virtual const NodeType nodeType();
+      public:
+        virtual NodeType nodeType() const override;
 
-      std::shared_ptr<AST::Expression> test;
-      std::shared_ptr<AST::Expression> primary;
-      std::shared_ptr<AST::Expression> secondary;
+        std::shared_ptr<AST::Expression> test;
+        std::shared_ptr<AST::Expression> primary;
+        std::shared_ptr<AST::Expression> secondary;
 
-      virtual std::string toString();
-      virtual bool operator ==(const TernaryOperation& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const TernaryOperation& other) const;
     };
   };
 };

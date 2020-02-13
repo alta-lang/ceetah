@@ -11,12 +11,14 @@ namespace Ceetah {
 
     class StringLiteral: public Expression {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         std::string value;
 
-        virtual std::string toString();
-        virtual bool operator ==(const StringLiteral& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const StringLiteral& other) const;
     };
   };
 };

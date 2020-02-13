@@ -9,14 +9,16 @@ namespace Ceetah {
   namespace AST {
     class StructureDefinition: public Statement {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         std::string name;
         std::vector<std::pair<std::string, std::shared_ptr<Type>>> members;
         bool packed = false;
 
-        virtual std::string toString();
-        virtual bool operator ==(const StructureDefinition& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const StructureDefinition& other) const;
     };
   };
 };

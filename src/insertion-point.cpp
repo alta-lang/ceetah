@@ -180,3 +180,72 @@ size_t Ceetah::InsertionPoint::save() {
 void Ceetah::InsertionPoint::restore(size_t position) {
   index = position;
 };
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::InsertionPoint::remove(bool movePointer) {
+  std::shared_ptr<Ceetah::AST::Node> result = nullptr;
+  AST::NodeType nodeType = node->nodeType();
+  if (nodeType == AST::NodeType::RootNode) {
+    auto root = std::dynamic_pointer_cast<AST::RootNode>(node);
+    auto stmt = root->statements[index];
+    stmt->parent = std::weak_ptr<Ceetah::AST::Node>();
+    root->statements.erase(root->statements.begin() + index);
+    if (movePointer) {
+      index--;
+    }
+  } else if (nodeType == AST::NodeType::FunctionDefinition) {
+    auto func = std::dynamic_pointer_cast<AST::FunctionDefinition>(node);
+    auto stmt = func->body[index];
+    stmt->parent = std::weak_ptr<Ceetah::AST::Node>();
+    func->body.erase(func->body.begin() + index);
+    if (movePointer) {
+      index--;
+    }
+  } else if (nodeType == AST::NodeType::ConditionalPreprocessorDirective) {
+    auto cond = std::dynamic_pointer_cast<AST::ConditionalPreprocessorDirective>(node);
+    auto child = cond->nodes[index];
+    child->parent = std::weak_ptr<Ceetah::AST::Node>();
+    cond->nodes.erase(cond->nodes.begin() + index);
+    if (movePointer) {
+      index--;
+    }
+  } else if (nodeType == AST::NodeType::ConditionalStatement) {
+    auto cond = std::dynamic_pointer_cast<AST::ConditionalStatement>(node);
+    if (index == 0) {
+      result = cond->primaryResult;
+      cond->primaryResult = nullptr;
+      result->parent = std::weak_ptr<Ceetah::AST::Node>();
+    } else if (index == 1) {
+      result = cond->finalAlternative;
+      cond->finalAlternative = nullptr;
+      result->parent = std::weak_ptr<Ceetah::AST::Node>();
+    } else {
+      auto& entry = cond->alternatives[(index - 2) / 2];
+      if ((index - 2) % 2 == 0) {
+        result = entry.first;
+        entry.first = nullptr;
+        result->parent = std::weak_ptr<Ceetah::AST::Node>();
+      } else {
+        result = entry.second;
+        entry.second = nullptr;
+        result->parent = std::weak_ptr<Ceetah::AST::Node>();
+      }
+    }
+  } else if (nodeType == AST::NodeType::Block) {
+    auto block = std::dynamic_pointer_cast<AST::Block>(node);
+    result = block->statements[index];
+    result->parent = std::weak_ptr<Ceetah::AST::Node>();
+    block->statements.erase(block->statements.begin() + index);
+    if (movePointer) {
+      index--;
+    }
+  } else if (nodeType == AST::NodeType::WhileLoop) {
+    auto loop = std::dynamic_pointer_cast<AST::WhileLoop>(node);
+    result = loop->body;
+    result->parent = std::weak_ptr<Ceetah::AST::Node>();
+    loop->body = nullptr;
+    index = 0;
+  } else {
+    throw InvalidInsertionNodeException();
+  }
+  return result;
+};

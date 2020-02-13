@@ -10,12 +10,14 @@ namespace Ceetah {
   namespace AST {
     class ExpressionStatement: public Statement {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         std::shared_ptr<Expression> expression;
 
-        virtual std::string toString();
-        virtual bool operator ==(const ExpressionStatement& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const ExpressionStatement& other) const;
     };
   };
 };

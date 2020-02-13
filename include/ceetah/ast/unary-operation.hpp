@@ -9,14 +9,16 @@ namespace Ceetah {
   namespace AST {
     class UnaryOperation: public Expression {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         UOperatorType type;
         bool post = false;
         std::shared_ptr<Expression> target;
 
-        virtual std::string toString();
-        virtual bool operator ==(const UnaryOperation& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const UnaryOperation& other) const;
     };
   };
 };

@@ -13,14 +13,16 @@ namespace Ceetah {
     //     bi(n)-ary = 2-arguments
     class BinaryOperation: public Expression {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         OperatorType type;
         std::shared_ptr<Expression> left;
         std::shared_ptr<Expression> right;
 
-        virtual std::string toString();
-        virtual bool operator ==(const BinaryOperation& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const BinaryOperation& other) const;
     };
   };
 };

@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/character-literal.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::CharacterLiteral::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::CharacterLiteral::nodeType() const {
   return NodeType::CharacterLiteral;
 };
 
-std::string Ceetah::AST::CharacterLiteral::toString() {
+std::string Ceetah::AST::CharacterLiteral::toString() const {
   std::string result;
   result += '\'';
   if (escaped) result += '\\';
@@ -20,7 +20,20 @@ std::string Ceetah::AST::CharacterLiteral::toString() {
   return result;
 };
 
-bool Ceetah::AST::CharacterLiteral::operator ==(const Ceetah::AST::CharacterLiteral& other) {
+bool Ceetah::AST::CharacterLiteral::operator ==(const Ceetah::AST::CharacterLiteral& other) const {
   if (value != other.value) return false;
   return escaped == other.escaped;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::CharacterLiteral::clone() const {
+  auto node = std::make_shared<Ceetah::AST::CharacterLiteral>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::CharacterLiteral::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::CharacterLiteral>(_node);
+  Expression::cloneTo(node);
+  node->value = value;
+  node->escaped = escaped;
 };

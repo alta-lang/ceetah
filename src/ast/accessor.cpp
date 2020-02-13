@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/accessor.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::Accessor::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::Accessor::nodeType() const {
   return NodeType::Accessor;
 };
 
-std::string Ceetah::AST::Accessor::toString() {
+std::string Ceetah::AST::Accessor::toString() const {
   auto result = target->toString() + '.' + query;
 
   if (!preComment.empty())
@@ -23,7 +23,20 @@ std::shared_ptr<Ceetah::AST::Accessor> Ceetah::AST::Accessor::access(std::string
   return newAcc;
 };
 
-bool Ceetah::AST::Accessor::operator ==(const Ceetah::AST::Accessor& other) {
+bool Ceetah::AST::Accessor::operator ==(const Ceetah::AST::Accessor& other) const {
   if (*target != *other.target) return false;
   return query == other.query;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::Accessor::clone() const {
+  auto node = std::make_shared<Ceetah::AST::Accessor>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::Accessor::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::Accessor>(_node);
+  Expression::cloneTo(node);
+  CEETAH_AST_CLONE_CHILD(target);
+  node->query = query;
 };

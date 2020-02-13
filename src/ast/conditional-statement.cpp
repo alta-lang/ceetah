@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/conditional-statement.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::ConditionalStatement::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::ConditionalStatement::nodeType() const {
   return NodeType::ConditionalStatement;
 };
 
-std::string Ceetah::AST::ConditionalStatement::toString() {
+std::string Ceetah::AST::ConditionalStatement::toString() const {
   std::string result = "if (" + test->toString() + ") ";
   if (newlineOnExpressions) result += '\n';
   result += primaryResult->toString();
@@ -32,7 +32,7 @@ std::string Ceetah::AST::ConditionalStatement::toString() {
   return result;
 };
 
-bool Ceetah::AST::ConditionalStatement::operator ==(const Ceetah::AST::ConditionalStatement& other) {
+bool Ceetah::AST::ConditionalStatement::operator ==(const Ceetah::AST::ConditionalStatement& other) const {
   if (*test != *other.test) return false;
   if (*primaryResult != *other.primaryResult) return false;
   
@@ -46,4 +46,30 @@ bool Ceetah::AST::ConditionalStatement::operator ==(const Ceetah::AST::Condition
   if (finalAlternative && *finalAlternative != *other.finalAlternative) return false;
 
   return true;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::ConditionalStatement::clone() const {
+  auto node = std::make_shared<Ceetah::AST::ConditionalStatement>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::ConditionalStatement::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::ConditionalStatement>(_node);
+  Statement::cloneTo(node);
+  CEETAH_AST_CLONE_CHILD(test);
+  CEETAH_AST_CLONE_CHILD(primaryResult);
+  CEETAH_AST_CLONE_CHILD(finalAlternative);
+  for (size_t i = 0; i < alternatives.size(); ++i) {
+    node->alternatives.emplace_back(
+      alternatives[i].first ? std::dynamic_pointer_cast<decltype(node->alternatives)::value_type::first_type::element_type>(alternatives[i].first->clone()) : nullptr,
+      alternatives[i].second ? std::dynamic_pointer_cast<decltype(node->alternatives)::value_type::second_type::element_type>(alternatives[i].second->clone()) : nullptr
+    );
+    if (node->alternatives[i].first) {
+      node->alternatives[i].first->parent = node;
+    }
+    if (node->alternatives[i].second) {
+      node->alternatives[i].second->parent = node;
+    }
+  }
 };

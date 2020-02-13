@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/multi-expression.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::MultiExpression::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::MultiExpression::nodeType() const {
   return NodeType::MultiExpression;
 };
 
-std::string Ceetah::AST::MultiExpression::toString() {
+std::string Ceetah::AST::MultiExpression::toString() const {
   if (expressions.size() == 0) return "";
 
   std::string result = "(";
@@ -32,7 +32,7 @@ std::string Ceetah::AST::MultiExpression::toString() {
   return result;
 };
 
-bool Ceetah::AST::MultiExpression::operator ==(const Ceetah::AST::MultiExpression& other) {
+bool Ceetah::AST::MultiExpression::operator ==(const Ceetah::AST::MultiExpression& other) const {
   if (expressions.size() != other.expressions.size()) return false;
   bool ok = true;
   for (size_t i = 0; i < expressions.size(); i++) {
@@ -42,4 +42,16 @@ bool Ceetah::AST::MultiExpression::operator ==(const Ceetah::AST::MultiExpressio
     }
   }
   return ok;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::MultiExpression::clone() const {
+  auto node = std::make_shared<Ceetah::AST::MultiExpression>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::MultiExpression::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::MultiExpression>(_node);
+  Expression::cloneTo(node);
+  CEETAH_AST_CLONE_CHILDREN(expressions);
 };

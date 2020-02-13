@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/inclusional-preprocessor-directive.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::InclusionalPreprocessorDirective::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::InclusionalPreprocessorDirective::nodeType() const {
   return NodeType::InclusionalPreprocessorDirective;
 };
 
-std::string Ceetah::AST::InclusionalPreprocessorDirective::toString() {
+std::string Ceetah::AST::InclusionalPreprocessorDirective::toString() const {
   auto result = std::string("#include ") +
                 (type == InclusionType::Computed ? ' ' : (type == InclusionType::Local ? '\"' : '<')) +
                 includeQuery +
@@ -19,7 +19,20 @@ std::string Ceetah::AST::InclusionalPreprocessorDirective::toString() {
   return result;
 };
 
-bool Ceetah::AST::InclusionalPreprocessorDirective::operator ==(const Ceetah::AST::InclusionalPreprocessorDirective& other) {
+bool Ceetah::AST::InclusionalPreprocessorDirective::operator ==(const Ceetah::AST::InclusionalPreprocessorDirective& other) const {
   if (includeQuery != other.includeQuery) return false;
   return type == other.type;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::InclusionalPreprocessorDirective::clone() const {
+  auto node = std::make_shared<Ceetah::AST::InclusionalPreprocessorDirective>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::InclusionalPreprocessorDirective::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::InclusionalPreprocessorDirective>(_node);
+  PreprocessorDirective::cloneTo(node);
+  node->includeQuery = includeQuery;
+  node->type = type;
 };

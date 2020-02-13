@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/conditional-preprocessor-directive.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::ConditionalPreprocessorDirective::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::ConditionalPreprocessorDirective::nodeType() const {
   return NodeType::ConditionalPreprocessorDirective;
 };
 
-std::string Ceetah::AST::ConditionalPreprocessorDirective::toString() {
+std::string Ceetah::AST::ConditionalPreprocessorDirective::toString() const {
   std::string result = "#if " + test + "\n";
   for (auto& node: nodes) {
     result += node->toString();
@@ -21,7 +21,7 @@ std::string Ceetah::AST::ConditionalPreprocessorDirective::toString() {
   return result;
 };
 
-bool Ceetah::AST::ConditionalPreprocessorDirective::operator ==(const Ceetah::AST::ConditionalPreprocessorDirective& other) {
+bool Ceetah::AST::ConditionalPreprocessorDirective::operator ==(const Ceetah::AST::ConditionalPreprocessorDirective& other) const {
   if (test != other.test) return false;
   if (nodes.size() != other.nodes.size()) return false;
   bool ok = true;
@@ -32,4 +32,17 @@ bool Ceetah::AST::ConditionalPreprocessorDirective::operator ==(const Ceetah::AS
     }
   }
   return ok;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::ConditionalPreprocessorDirective::clone() const {
+  auto node = std::make_shared<Ceetah::AST::ConditionalPreprocessorDirective>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::ConditionalPreprocessorDirective::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::ConditionalPreprocessorDirective>(_node);
+  PreprocessorDirective::cloneTo(node);
+  node->test = test;
+  CEETAH_AST_CLONE_CHILDREN(nodes);
 };

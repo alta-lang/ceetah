@@ -1,11 +1,11 @@
 #include "../../include/ceetah/ast/root-node.hpp"
 #include <cinttypes>
 
-const Ceetah::AST::NodeType Ceetah::AST::RootNode::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::RootNode::nodeType() const {
   return NodeType::RootNode;
 };
 
-std::string Ceetah::AST::RootNode::toString() {
+std::string Ceetah::AST::RootNode::toString() const {
   std::string result;
 
   for (auto& stmt: statements) {
@@ -22,7 +22,7 @@ std::string Ceetah::AST::RootNode::toString() {
   return result;
 };
 
-bool Ceetah::AST::RootNode::operator ==(const Ceetah::AST::RootNode& other) {
+bool Ceetah::AST::RootNode::operator ==(const Ceetah::AST::RootNode& other) const {
   if (other.statements.size() != statements.size()) return false;
   bool stmtsEqual = true;
   for (size_t i = 0; i < statements.size(); i++) {
@@ -32,4 +32,16 @@ bool Ceetah::AST::RootNode::operator ==(const Ceetah::AST::RootNode& other) {
     if (!stmtsEqual) break;
   }
   return stmtsEqual;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::RootNode::clone() const {
+  auto node = std::make_shared<Ceetah::AST::RootNode>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::RootNode::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::RootNode>(_node);
+  Node::cloneTo(node);
+  CEETAH_AST_CLONE_CHILDREN(statements);
 };

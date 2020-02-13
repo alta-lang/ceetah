@@ -8,13 +8,15 @@ namespace Ceetah {
   namespace AST {
     class Accessor: public Expression {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         std::shared_ptr<Expression> target;
         std::string query;
 
-        virtual std::string toString();
-        virtual bool operator ==(const Accessor& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const Accessor& other) const;
 
         std::shared_ptr<AST::Accessor> access(std::string subquery);
     };

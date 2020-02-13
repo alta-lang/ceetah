@@ -8,14 +8,16 @@ namespace Ceetah {
   namespace AST {
     class Assignment: public Expression {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         std::shared_ptr<AST::Expression> target;
         std::shared_ptr<AST::Expression> value;
         AssignmentType type = AssignmentType::Simple;
 
-        virtual std::string toString();
-        virtual bool operator ==(const Assignment& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const Assignment& other) const;
     };
   };
 };

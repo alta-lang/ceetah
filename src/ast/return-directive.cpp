@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/return-directive.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::ReturnDirective::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::ReturnDirective::nodeType() const {
   return NodeType::ReturnDirective;
 };
 
-std::string Ceetah::AST::ReturnDirective::toString() {
+std::string Ceetah::AST::ReturnDirective::toString() const {
   std::string result;
 
   if (value != nullptr) {
@@ -22,7 +22,7 @@ std::string Ceetah::AST::ReturnDirective::toString() {
   return result;
 };
 
-bool Ceetah::AST::ReturnDirective::operator ==(const Ceetah::AST::ReturnDirective& other) {
+bool Ceetah::AST::ReturnDirective::operator ==(const Ceetah::AST::ReturnDirective& other) const {
   if ((other.value == nullptr) != (value == nullptr)) {
     return false;
   }
@@ -32,4 +32,16 @@ bool Ceetah::AST::ReturnDirective::operator ==(const Ceetah::AST::ReturnDirectiv
     return *value == *other.value;
   }
   return true;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::ReturnDirective::clone() const {
+  auto node = std::make_shared<Ceetah::AST::ReturnDirective>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::ReturnDirective::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::ReturnDirective>(_node);
+  Statement::cloneTo(node);
+  CEETAH_AST_CLONE_CHILD(value);
 };

@@ -9,12 +9,14 @@ namespace Ceetah {
   namespace AST {
     class Label: public Statement {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         std::string label;
 
-        virtual std::string toString();
-        virtual bool operator ==(const Label& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const Label& other) const;
     };
   };
 };

@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/array-literal.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::ArrayLiteral::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::ArrayLiteral::nodeType() const {
   return NodeType::ArrayLiteral;
 };
 
-std::string Ceetah::AST::ArrayLiteral::toString() {
+std::string Ceetah::AST::ArrayLiteral::toString() const {
   std::string result = "";
 
   if (type) {
@@ -43,7 +43,7 @@ std::string Ceetah::AST::ArrayLiteral::toString() {
   return result;
 };
 
-bool Ceetah::AST::ArrayLiteral::operator ==(const Ceetah::AST::ArrayLiteral& other) {
+bool Ceetah::AST::ArrayLiteral::operator ==(const Ceetah::AST::ArrayLiteral& other) const {
   if ((!!type) != (!!other.type)) return false;
 
   if (type && *type != *other.type) return false;
@@ -60,4 +60,17 @@ bool Ceetah::AST::ArrayLiteral::operator ==(const Ceetah::AST::ArrayLiteral& oth
   if (!match) return false;
 
   return true;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::ArrayLiteral::clone() const {
+  auto node = std::make_shared<Ceetah::AST::ArrayLiteral>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::ArrayLiteral::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::ArrayLiteral>(_node);
+  Expression::cloneTo(node);
+  CEETAH_AST_CLONE_CHILD(type);
+  CEETAH_AST_CLONE_CHILDREN(items);
 };

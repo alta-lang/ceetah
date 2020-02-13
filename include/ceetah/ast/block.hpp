@@ -10,12 +10,14 @@ namespace Ceetah {
   namespace AST {
     class Block: public Statement {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         std::vector<std::shared_ptr<Node>> statements;
 
-        virtual std::string toString();
-        virtual bool operator ==(const Block& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const Block& other) const;
     };
   };
 };

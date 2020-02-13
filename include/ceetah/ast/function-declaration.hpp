@@ -10,14 +10,16 @@ namespace Ceetah {
   namespace AST {
     class FunctionDeclaration: public Statement {
       public:
-        virtual const NodeType nodeType();
+        virtual NodeType nodeType() const override;
 
         std::string name;
         std::vector<std::tuple<std::string, std::shared_ptr<Type>>> parameters;
         std::shared_ptr<Type> returnType;
 
-        virtual std::string toString();
-        virtual bool operator ==(const FunctionDeclaration& other);
+        virtual std::shared_ptr<Node> clone() const override;
+        void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toString() const override;
+        virtual bool operator ==(const FunctionDeclaration& other) const;
     };
   };
 };

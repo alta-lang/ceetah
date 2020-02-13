@@ -1,10 +1,10 @@
 #include "../../include/ceetah/ast/structure-definition.hpp"
 
-const Ceetah::AST::NodeType Ceetah::AST::StructureDefinition::nodeType() {
+Ceetah::AST::NodeType Ceetah::AST::StructureDefinition::nodeType() const {
   return NodeType::StructureDefinition;
 };
 
-std::string Ceetah::AST::StructureDefinition::toString() {
+std::string Ceetah::AST::StructureDefinition::toString() const {
   std::string result = "";
 
   if (packed) {
@@ -45,7 +45,7 @@ std::string Ceetah::AST::StructureDefinition::toString() {
   return result;
 };
 
-bool Ceetah::AST::StructureDefinition::operator ==(const Ceetah::AST::StructureDefinition& other) {
+bool Ceetah::AST::StructureDefinition::operator ==(const Ceetah::AST::StructureDefinition& other) const {
   if (name != other.name) return false;
 
   if (members.size() != other.members.size()) return false;
@@ -55,4 +55,26 @@ bool Ceetah::AST::StructureDefinition::operator ==(const Ceetah::AST::StructureD
   }
 
   return true;
+};
+
+std::shared_ptr<Ceetah::AST::Node> Ceetah::AST::StructureDefinition::clone() const {
+  auto node = std::make_shared<Ceetah::AST::StructureDefinition>();
+  cloneTo(node);
+  return node;
+};
+
+void Ceetah::AST::StructureDefinition::cloneTo(std::shared_ptr<Node> _node) const {
+  auto node = std::dynamic_pointer_cast<Ceetah::AST::StructureDefinition>(_node);
+  Statement::cloneTo(node);
+  node->name = name;
+  for (size_t i = 0; i < members.size(); ++i) {
+    node->members.emplace_back(
+      members[i].first,
+      members[i].second ? std::dynamic_pointer_cast<decltype(node->members)::value_type::second_type::element_type>(members[i].second->clone()) : nullptr
+    );
+    if (node->members[i].second) {
+      node->members[i].second->parent = node;
+    }
+  }
+  node->packed = packed;
 };
