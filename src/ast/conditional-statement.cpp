@@ -4,21 +4,21 @@ Ceetah::AST::NodeType Ceetah::AST::ConditionalStatement::nodeType() const {
   return NodeType::ConditionalStatement;
 };
 
-std::string Ceetah::AST::ConditionalStatement::toString() const {
-  std::string result = "if (" + test->toString() + ") ";
-  if (newlineOnExpressions) result += '\n';
-  result += primaryResult->toString();
+std::string Ceetah::AST::ConditionalStatement::toStringWithIndent(std::string indent) const {
+  std::string result = "if (" + test->toStringWithIndent(indent) + ") ";
+  if (newlineOnExpressions) result += '\n' + indent;
+  result += primaryResult->toStringWithIndent(indent);
 
   for (auto& [altTest, altResult]: alternatives) {
-    result += " else if (" + altTest->toString() + ") ";
-    if (newlineOnExpressions) result += '\n';
-    result += altResult->toString();
+    result += " else if (" + altTest->toStringWithIndent(indent) + ") ";
+    if (newlineOnExpressions) result += '\n' + indent;
+    result += altResult->toStringWithIndent(indent);
   }
 
   if (finalAlternative) {
     result += " else ";
-    if (newlineOnExpressions) result += '\n';
-    result += finalAlternative->toString();
+    if (newlineOnExpressions) result += '\n' + indent;
+    result += finalAlternative->toStringWithIndent(indent);
   }
 
   result += ';';

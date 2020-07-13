@@ -4,8 +4,8 @@ Ceetah::AST::NodeType Ceetah::AST::ExpressionStatement::nodeType() const {
   return NodeType::ExpressionStatement;
 };
 
-std::string Ceetah::AST::ExpressionStatement::toString() const {
-  auto result = expression->toString() + ";";
+std::string Ceetah::AST::ExpressionStatement::toStringWithIndent(std::string indent) const {
+  auto result = expression->toStringWithIndent(indent) + ";";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

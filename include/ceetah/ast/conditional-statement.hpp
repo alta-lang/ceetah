@@ -18,7 +18,7 @@ namespace Ceetah {
 
         virtual std::shared_ptr<Node> clone() const override;
         void cloneTo(std::shared_ptr<Node> node) const;
-        virtual std::string toString() const override;
+        virtual std::string toStringWithIndent(std::string indent = "") const override;
         virtual bool operator ==(const ConditionalStatement& other) const;
     };
   };

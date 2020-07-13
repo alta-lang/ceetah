@@ -4,11 +4,11 @@ Ceetah::AST::NodeType Ceetah::AST::VariableDefinition::nodeType() const {
   return NodeType::VariableDefinition;
 };
 
-std::string Ceetah::AST::VariableDefinition::toString() const {
-  auto result = type->toString() + " " + name;
+std::string Ceetah::AST::VariableDefinition::toStringWithIndent(std::string indent) const {
+  auto result = type->toStringWithIndent(indent) + " " + name;
 
   if (initializationExpression != nullptr) {
-    result += " = " + initializationExpression->toString();
+    result += " = " + initializationExpression->toStringWithIndent(indent);
   }
 
   result += ';';

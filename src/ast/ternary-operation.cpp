@@ -4,12 +4,12 @@ Ceetah::AST::NodeType Ceetah::AST::TernaryOperation::nodeType() const {
   return NodeType::TernaryOperation;
 };
 
-std::string Ceetah::AST::TernaryOperation::toString() const {
-  auto result = "((" + test->toString() + ") ?";
-  if (newlineOnExpressions) result += '\n';
-  result += '(' + primary->toString() + ") : ";
-  if (newlineOnExpressions) result += '\n';
-  result += '(' + secondary->toString() + "))";
+std::string Ceetah::AST::TernaryOperation::toStringWithIndent(std::string indent) const {
+  auto result = "((" + test->toStringWithIndent(indent) + ") ?";
+  if (newlineOnExpressions) result += '\n' + indent;
+  result += '(' + primary->toStringWithIndent(indent) + ") : ";
+  if (newlineOnExpressions) result += '\n' + indent;
+  result += '(' + secondary->toStringWithIndent(indent) + "))";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

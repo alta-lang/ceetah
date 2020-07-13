@@ -4,8 +4,8 @@ Ceetah::AST::NodeType Ceetah::AST::Sizeof::nodeType() const {
   return NodeType::Sizeof;
 };
 
-std::string Ceetah::AST::Sizeof::toString() const {
-  auto result = "sizeof(" + type->toString() + ")";
+std::string Ceetah::AST::Sizeof::toStringWithIndent(std::string indent) const {
+  auto result = "sizeof(" + type->toStringWithIndent(indent) + ")";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

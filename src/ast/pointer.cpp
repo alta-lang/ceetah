@@ -5,8 +5,8 @@ Ceetah::AST::NodeType Ceetah::AST::Pointer::nodeType() const {
   return NodeType::Pointer;
 };
 
-std::string Ceetah::AST::Pointer::toString() const {
-  auto result = "(&(" + target->toString() + "))";
+std::string Ceetah::AST::Pointer::toStringWithIndent(std::string indent) const {
+  auto result = "(&(" + target->toStringWithIndent(indent) + "))";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

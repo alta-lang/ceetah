@@ -4,7 +4,7 @@ Ceetah::AST::NodeType Ceetah::AST::UndefinitivePreprocessorDirective::nodeType()
   return NodeType::UndefinitivePreprocessorDirective;
 };
 
-std::string Ceetah::AST::UndefinitivePreprocessorDirective::toString() const {
+std::string Ceetah::AST::UndefinitivePreprocessorDirective::toStringWithIndent(std::string indent) const {
   auto result = "#undef " + undefinition;
 
   if (!preComment.empty())

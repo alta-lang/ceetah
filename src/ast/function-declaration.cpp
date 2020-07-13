@@ -4,10 +4,10 @@ Ceetah::AST::NodeType Ceetah::AST::FunctionDeclaration::nodeType() const {
   return NodeType::FunctionDeclaration;
 };
 
-std::string Ceetah::AST::FunctionDeclaration::toString() const {
+std::string Ceetah::AST::FunctionDeclaration::toStringWithIndent(std::string indent) const {
   std::string result;
 
-  result += returnType->toString();
+  result += returnType->toStringWithIndent(indent);
   result += ' ';
   result += name;
   result += '(';
@@ -19,7 +19,7 @@ std::string Ceetah::AST::FunctionDeclaration::toString() const {
     } else {
       result += ", ";
     }
-    result += type->toString();
+    result += type->toStringWithIndent(indent);
     result += ' ';
     result += name;
   }

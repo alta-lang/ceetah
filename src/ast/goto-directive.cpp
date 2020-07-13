@@ -4,7 +4,7 @@ Ceetah::AST::NodeType Ceetah::AST::GotoDirective::nodeType() const {
   return NodeType::GotoDirective;
 };
 
-std::string Ceetah::AST::GotoDirective::toString() const {
+std::string Ceetah::AST::GotoDirective::toStringWithIndent(std::string indent) const {
   std::string result = "goto " + label + ';';
 
   if (!preComment.empty())

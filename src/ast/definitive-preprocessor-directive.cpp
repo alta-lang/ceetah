@@ -4,7 +4,7 @@ Ceetah::AST::NodeType Ceetah::AST::DefinitivePreprocessorDirective::nodeType() c
   return NodeType::DefinitivePreprocessorDirective;
 };
 
-std::string Ceetah::AST::DefinitivePreprocessorDirective::toString() const {
+std::string Ceetah::AST::DefinitivePreprocessorDirective::toStringWithIndent(std::string indent) const {
   auto result = "#define " + definition;
   if (value != "") {
     result += ' ' + value;

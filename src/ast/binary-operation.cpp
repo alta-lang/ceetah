@@ -4,12 +4,12 @@ Ceetah::AST::NodeType Ceetah::AST::BinaryOperation::nodeType() const {
   return NodeType::BinaryOperation;
 };
 
-std::string Ceetah::AST::BinaryOperation::toString() const {
-  auto result = "((" + left->toString() + ") " + OperatorType_operators[(uint8_t)type];
+std::string Ceetah::AST::BinaryOperation::toStringWithIndent(std::string indent) const {
+  auto result = "((" + left->toStringWithIndent(indent) + ") " + OperatorType_operators[(uint8_t)type];
 
-  if (newlineOnExpressions) result += '\n';
+  if (newlineOnExpressions) result += '\n' + indent + '\t';
 
-  result += " (" + right->toString() + "))";
+  result += " (" + right->toStringWithIndent(indent + '\t') + "))";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

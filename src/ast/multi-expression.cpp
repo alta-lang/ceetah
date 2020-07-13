@@ -4,23 +4,23 @@ Ceetah::AST::NodeType Ceetah::AST::MultiExpression::nodeType() const {
   return NodeType::MultiExpression;
 };
 
-std::string Ceetah::AST::MultiExpression::toString() const {
+std::string Ceetah::AST::MultiExpression::toStringWithIndent(std::string indent) const {
   if (expressions.size() == 0) return "";
 
   std::string result = "(";
 
   bool isFirst = true;
   for (auto& expr: expressions) {
-    if (newlineOnExpressions) result += '\n';
+    if (newlineOnExpressions) result += '\n' + indent;
     if (isFirst) {
       isFirst = false;
     } else {
       result += ',';
     }
-    result += '(' + expr->toString() + ')';
+    result += '(' + expr->toStringWithIndent(indent) + ')';
   }
 
-  if (newlineOnExpressions) result += '\n';
+  if (newlineOnExpressions) result += '\n' + indent;
   result += ')';
 
   if (!preComment.empty())

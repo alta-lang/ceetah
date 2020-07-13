@@ -4,11 +4,10 @@ Ceetah::AST::NodeType Ceetah::AST::ConditionalPreprocessorDirective::nodeType() 
   return NodeType::ConditionalPreprocessorDirective;
 };
 
-std::string Ceetah::AST::ConditionalPreprocessorDirective::toString() const {
-  std::string result = "#if " + test + "\n";
+std::string Ceetah::AST::ConditionalPreprocessorDirective::toStringWithIndent(std::string indent) const {
+  std::string result = "#if " + test + "\n" + indent;
   for (auto& node: nodes) {
-    result += node->toString();
-    result += "\n";
+    result += '\t' + node->toStringWithIndent(indent + '\t') + '\n' + indent;
   }
   result += "#endif // " + test;
 

@@ -4,11 +4,11 @@ Ceetah::AST::NodeType Ceetah::AST::TypeDefinition::nodeType() const {
   return NodeType::TypeDefinition;
 };
 
-std::string Ceetah::AST::TypeDefinition::toString() const {
+std::string Ceetah::AST::TypeDefinition::toStringWithIndent(std::string indent) const {
   std::string result;
 
   if (type->isFunction) {
-    result = "typedef " + type->returnType->toString() + " (*" + name + ")(";
+    result = "typedef " + type->returnType->toStringWithIndent(indent) + " (*" + name + ")(";
     bool isFirst = true;
     for (auto& param: type->parameters) {
       if (isFirst) {
@@ -16,11 +16,11 @@ std::string Ceetah::AST::TypeDefinition::toString() const {
       } else {
         result += ", ";
       }
-      result += param->toString();
+      result += param->toStringWithIndent(indent);
     }
     result += ");";
   } else {
-    result = "typedef " + type->toString() + ' ' + name + ";";
+    result = "typedef " + type->toStringWithIndent(indent) + ' ' + name + ";";
   }
 
   if (!preComment.empty())

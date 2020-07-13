@@ -4,7 +4,7 @@ Ceetah::AST::NodeType Ceetah::AST::CharacterLiteral::nodeType() const {
   return NodeType::CharacterLiteral;
 };
 
-std::string Ceetah::AST::CharacterLiteral::toString() const {
+std::string Ceetah::AST::CharacterLiteral::toStringWithIndent(std::string indent) const {
   std::string result;
   result += '\'';
   if (escaped) result += '\\';

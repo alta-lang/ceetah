@@ -4,7 +4,7 @@ Ceetah::AST::NodeType Ceetah::AST::Fetch::nodeType() const {
   return NodeType::Fetch;
 };
 
-std::string Ceetah::AST::Fetch::toString() const {
+std::string Ceetah::AST::Fetch::toStringWithIndent(std::string indent) const {
   auto result = query;
 
   if (!preComment.empty())

@@ -4,13 +4,13 @@ Ceetah::AST::NodeType Ceetah::AST::UnaryOperation::nodeType() const {
   return NodeType::UnaryOperation;
 };
 
-std::string Ceetah::AST::UnaryOperation::toString() const {
+std::string Ceetah::AST::UnaryOperation::toStringWithIndent(std::string indent) const {
   std::string result;
 
   if (post) {
-    result = "((" + target->toString() + ')' + UOperatorType_operators[(uint8_t)type] + ')';
+    result = "((" + target->toStringWithIndent(indent) + ')' + UOperatorType_operators[(uint8_t)type] + ')';
   } else {
-    result = std::string("(") + UOperatorType_operators[(uint8_t)type] + '(' + target->toString() + "))";
+    result = std::string("(") + UOperatorType_operators[(uint8_t)type] + '(' + target->toStringWithIndent(indent) + "))";
   }
 
   if (!preComment.empty())

@@ -4,13 +4,13 @@ Ceetah::AST::NodeType Ceetah::AST::FunctionDefinition::nodeType() const {
   return NodeType::FunctionDefinition;
 };
 
-std::string Ceetah::AST::FunctionDefinition::toString() const {
+std::string Ceetah::AST::FunctionDefinition::toStringWithIndent(std::string indent) const {
   std::string result;
 
   if (isStatic) {
     result += "static ";
   }
-  result += returnType->toString();
+  result += returnType->toStringWithIndent(indent);
   result += ' ';
   result += name;
   result += '(';
@@ -22,17 +22,17 @@ std::string Ceetah::AST::FunctionDefinition::toString() const {
     } else {
       result += ", ";
     }
-    result += type->toString();
+    result += type->toStringWithIndent(indent);
     result += ' ';
     result += name;
   }
 
   result += ") {";
   if (body.size() > 0) {
-    result += '\n';
+    result += '\n' + indent;
     for (auto& stmt: body) {
-      result += stmt->toString();
-      result += '\n';
+      result += '\t' + stmt->toStringWithIndent(indent + '\t');
+      result += '\n' + indent;
     }
   }
   result += "};";

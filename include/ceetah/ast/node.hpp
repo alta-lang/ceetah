@@ -30,7 +30,8 @@ namespace Ceetah {
 
         virtual std::shared_ptr<Node> clone() const;
         void cloneTo(std::shared_ptr<Node> node) const;
-        virtual std::string toString() const;
+        virtual std::string toStringWithIndent(std::string indent = "") const;
+        std::string toString() const;
         virtual bool operator ==(const Node& other) const;
         virtual bool operator !=(const Node& other);
     };

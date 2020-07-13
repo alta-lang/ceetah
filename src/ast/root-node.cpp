@@ -5,12 +5,11 @@ Ceetah::AST::NodeType Ceetah::AST::RootNode::nodeType() const {
   return NodeType::RootNode;
 };
 
-std::string Ceetah::AST::RootNode::toString() const {
+std::string Ceetah::AST::RootNode::toStringWithIndent(std::string indent) const {
   std::string result;
 
   for (auto& stmt: statements) {
-    result += stmt->toString();
-    result += '\n';
+    result += stmt->toStringWithIndent(indent) + '\n' + indent;
   }
 
   if (!preComment.empty())

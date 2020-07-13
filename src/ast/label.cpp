@@ -4,7 +4,7 @@ Ceetah::AST::NodeType Ceetah::AST::Label::nodeType() const {
   return NodeType::Label;
 };
 
-std::string Ceetah::AST::Label::toString() const {
+std::string Ceetah::AST::Label::toStringWithIndent(std::string indent) const {
   std::string result = label + ':';
 
   if (!preComment.empty())

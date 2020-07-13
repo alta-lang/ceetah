@@ -4,15 +4,15 @@ Ceetah::AST::NodeType Ceetah::AST::Block::nodeType() const {
   return NodeType::Block;
 };
 
-std::string Ceetah::AST::Block::toString() const {
+std::string Ceetah::AST::Block::toStringWithIndent(std::string indent) const {
   std::string result = "{";
   bool isFirst = true;
   for (auto& stmt: statements) {
     if (isFirst) {
-      result += '\n';
+      result += '\n' + indent;
       isFirst = false;
     }
-    result += stmt->toString() + '\n';
+    result += '\t' + stmt->toStringWithIndent(indent + '\t') + '\n' + indent;
   }
   result += "}";
 

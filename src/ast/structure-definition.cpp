@@ -4,36 +4,36 @@ Ceetah::AST::NodeType Ceetah::AST::StructureDefinition::nodeType() const {
   return NodeType::StructureDefinition;
 };
 
-std::string Ceetah::AST::StructureDefinition::toString() const {
+std::string Ceetah::AST::StructureDefinition::toStringWithIndent(std::string indent) const {
   std::string result = "";
 
   if (packed) {
-    result += "#ifdef __GNUC__\n";
-    result += "#define CEETAH_PACKED_STRUCT __attribute__((__packed__))\n";
-    result += "#else\n";
-    result += "#define CEETAH_PACKED_STRUCT\n";
-    result += "#pragma pack(push, 1)\n";
-    result += "#endif // __GNUC__\n";
+    result += "#ifdef __GNUC__\n" + indent;
+    result += "\t#define CEETAH_PACKED_STRUCT __attribute__((__packed__))\n" + indent;
+    result += "#else\n" + indent;
+    result += "\t#define CEETAH_PACKED_STRUCT\n" + indent;
+    result += "\t#pragma pack(push, 1)\n" + indent;
+    result += "#endif // __GNUC__\n" + indent;
   }
   
   result += "struct " + std::string(packed ? "CEETAH_PACKED_STRUCT " : "") + name + " {";
 
   for (auto [name, type]: members) {
-    result += '\n';
-    result += type->toString() + " " + name + ";";
+    result += '\n' + indent;
+    result += '\t' + type->toStringWithIndent(indent + '\t') + " " + name + ";";
   }
 
   if (members.size() > 0) {
-    result += '\n';
+    result += '\n' + indent;
   }
 
-  result += "};\n";
+  result += "};\n" + indent;
 
   if (packed) {
-    result += "#ifndef __GNUC__\n";
-    result += "#pragma pack(pop)\n";
-    result += "#endif // __GNUC__\n";
-    result += "#undef CEETAH_PACKED_STRUCT\n";
+    result += "#ifndef __GNUC__\n" + indent;
+    result += "\t#pragma pack(pop)\n" + indent;
+    result += "#endif // __GNUC__\n" + indent;
+    result += "#undef CEETAH_PACKED_STRUCT\n" + indent;
   }
 
   if (!preComment.empty())

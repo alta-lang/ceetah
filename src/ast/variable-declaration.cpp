@@ -4,8 +4,8 @@ Ceetah::AST::NodeType Ceetah::AST::VariableDeclaration::nodeType() const {
   return NodeType::VariableDeclaration;
 };
 
-std::string Ceetah::AST::VariableDeclaration::toString() const {
-  auto result = "extern " + type->toString() + " " + name + ";";
+std::string Ceetah::AST::VariableDeclaration::toStringWithIndent(std::string indent) const {
+  auto result = "extern " + type->toStringWithIndent(indent) + " " + name + ";";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

@@ -31,10 +31,10 @@ namespace Ceetah {
 
         virtual std::shared_ptr<Node> clone() const override;
         void cloneTo(std::shared_ptr<Node> node) const;
+        virtual std::string toStringWithIndent(std::string indent = "") const override;
         /**
          * Full string representation of this type, as it would be seen in code
          */
-        virtual std::string toString() const override;
         virtual bool operator ==(const Type& other) const;
     };
   };

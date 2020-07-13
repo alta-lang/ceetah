@@ -1,4 +1,5 @@
 #include "../../include/ceetah/ast/node.hpp"
+#include <sstream>
 
 namespace Ceetah {
   namespace AST {
@@ -11,13 +12,18 @@ Ceetah::AST::NodeType Ceetah::AST::Node::nodeType() const {
 };
 
 std::string Ceetah::AST::Node::toString() const {
+  std::stringstream stream(toStringWithIndent());
+  std::string line;
   std::string result;
 
-  if (!preComment.empty())
-    result = "/* " + preComment + " */" + result;
-
-  if (!postComment.empty())
-    result += "/* " + postComment + " */";
+  while (std::getline(stream, line, '\n')) {
+    auto pos = line.find_first_not_of('\t');
+    if (pos == std::string::npos) {
+      result += '\n';
+    } else {
+      result += line.substr(pos) + '\n';
+    }
+  }
 
   return result;
 };
@@ -41,4 +47,16 @@ void Ceetah::AST::Node::cloneTo(std::shared_ptr<Node> _node) const {
   auto node = std::dynamic_pointer_cast<Ceetah::AST::Node>(_node);
   node->preComment = preComment;
   node->postComment = postComment;
+};
+
+std::string Ceetah::AST::Node::toStringWithIndent(std::string indent) const {
+  std::string result;
+
+  if (!preComment.empty())
+    result = "/* " + preComment + " */" + result;
+
+  if (!postComment.empty())
+    result += "/* " + postComment + " */";
+
+  return result;
 };

@@ -4,8 +4,8 @@ Ceetah::AST::NodeType Ceetah::AST::FunctionCall::nodeType() const {
   return NodeType::FunctionCall;
 };
 
-std::string Ceetah::AST::FunctionCall::toString() const {
-  auto result = target->toString();
+std::string Ceetah::AST::FunctionCall::toStringWithIndent(std::string indent) const {
+  auto result = target->toStringWithIndent(indent);
   if (!macro) {
     result = '(' + result;
     result += ')';
@@ -13,15 +13,15 @@ std::string Ceetah::AST::FunctionCall::toString() const {
   result += '(';
   bool isFirst = true;
   for (auto& arg: arguments) {
-    if (newlineOnExpressions) result += '\n';
+    if (newlineOnExpressions) result += '\n' + indent;
     if (isFirst) {
       isFirst = false;
     } else {
       result += ", ";
     }
-    result += arg->toString();
+    result += arg->toStringWithIndent(indent);
   }
-  if (newlineOnExpressions) result += '\n';
+  if (newlineOnExpressions) result += '\n' + indent;
   result += ')';
 
   if (!preComment.empty())

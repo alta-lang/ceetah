@@ -4,8 +4,8 @@ Ceetah::AST::NodeType Ceetah::AST::Accessor::nodeType() const {
   return NodeType::Accessor;
 };
 
-std::string Ceetah::AST::Accessor::toString() const {
-  auto result = target->toString() + '.' + query;
+std::string Ceetah::AST::Accessor::toStringWithIndent(std::string indent) const {
+  auto result = target->toStringWithIndent(indent) + '.' + query;
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

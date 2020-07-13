@@ -4,10 +4,10 @@ Ceetah::AST::NodeType Ceetah::AST::WhileLoop::nodeType() const {
   return NodeType::WhileLoop;
 };
 
-std::string Ceetah::AST::WhileLoop::toString() const {
-  auto result = "while (" + test->toString() + ") ";
-  if (newlineOnExpressions) result += '\n';
-  result += body->toString() + ";";
+std::string Ceetah::AST::WhileLoop::toStringWithIndent(std::string indent) const {
+  auto result = "while (" + test->toStringWithIndent(indent) + ") ";
+  if (newlineOnExpressions) result += '\n' + indent;
+  result += body->toStringWithIndent(indent) + ";";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

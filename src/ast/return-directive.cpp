@@ -4,11 +4,11 @@ Ceetah::AST::NodeType Ceetah::AST::ReturnDirective::nodeType() const {
   return NodeType::ReturnDirective;
 };
 
-std::string Ceetah::AST::ReturnDirective::toString() const {
+std::string Ceetah::AST::ReturnDirective::toStringWithIndent(std::string indent) const {
   std::string result;
 
   if (value != nullptr) {
-    result = "return " + value->toString() + ";";
+    result = "return " + value->toStringWithIndent(indent) + ";";
   } else {
     result = "return;";
   }

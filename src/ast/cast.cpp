@@ -4,8 +4,8 @@ Ceetah::AST::NodeType Ceetah::AST::Cast::nodeType() const {
   return NodeType::Cast;
 };
 
-std::string Ceetah::AST::Cast::toString() const {
-  auto result = "((" + type->toString() + ')' + target->toString() + ')';
+std::string Ceetah::AST::Cast::toStringWithIndent(std::string indent) const {
+  auto result = "((" + type->toStringWithIndent(indent) + ')' + target->toStringWithIndent(indent) + ')';
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

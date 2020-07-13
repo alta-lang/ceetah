@@ -4,7 +4,7 @@ Ceetah::AST::NodeType Ceetah::AST::InclusionalPreprocessorDirective::nodeType() 
   return NodeType::InclusionalPreprocessorDirective;
 };
 
-std::string Ceetah::AST::InclusionalPreprocessorDirective::toString() const {
+std::string Ceetah::AST::InclusionalPreprocessorDirective::toStringWithIndent(std::string indent) const {
   auto result = std::string("#include ") +
                 (type == InclusionType::Computed ? ' ' : (type == InclusionType::Local ? '\"' : '<')) +
                 includeQuery +

@@ -4,7 +4,7 @@ Ceetah::AST::NodeType Ceetah::AST::IntegerLiteral::nodeType() const {
   return NodeType::IntegerLiteral;
 };
 
-std::string Ceetah::AST::IntegerLiteral::toString() const {
+std::string Ceetah::AST::IntegerLiteral::toStringWithIndent(std::string indent) const {
   auto result = raw;
 
   if (!preComment.empty())

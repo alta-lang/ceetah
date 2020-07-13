@@ -4,8 +4,8 @@ Ceetah::AST::NodeType Ceetah::AST::Dereference::nodeType() const {
   return NodeType::Dereference;
 };
 
-std::string Ceetah::AST::Dereference::toString() const {
-  auto result = "(*(" + target->toString() + "))";
+std::string Ceetah::AST::Dereference::toStringWithIndent(std::string indent) const {
+  auto result = "(*(" + target->toStringWithIndent(indent) + "))";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

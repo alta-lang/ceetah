@@ -4,12 +4,12 @@ Ceetah::AST::NodeType Ceetah::AST::ArrayLiteral::nodeType() const {
   return NodeType::ArrayLiteral;
 };
 
-std::string Ceetah::AST::ArrayLiteral::toString() const {
+std::string Ceetah::AST::ArrayLiteral::toStringWithIndent(std::string indent) const {
   std::string result = "";
 
   if (type) {
     result += '(';
-    result += type->toString();
+    result += type->toStringWithIndent(indent);
     result += ')';
   }
 
@@ -17,7 +17,7 @@ std::string Ceetah::AST::ArrayLiteral::toString() const {
 
   bool isFirst = true;
   for (auto& item: items) {
-    if (newlineOnExpressions) result += '\n';
+    if (newlineOnExpressions) result += '\n' + indent + '\t';
 
     if (isFirst) {
       isFirst = false;
@@ -26,11 +26,11 @@ std::string Ceetah::AST::ArrayLiteral::toString() const {
     }
 
     result += '(';
-    result += item->toString();
+    result += item->toStringWithIndent(indent + "\t\t");
     result += ')';
   }
 
-  if (newlineOnExpressions) result += '\n';
+  if (newlineOnExpressions) result += '\n' + indent;
 
   result += '}';
 

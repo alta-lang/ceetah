@@ -4,12 +4,12 @@ Ceetah::AST::NodeType Ceetah::AST::Assignment::nodeType() const {
   return NodeType::Assignment;
 };
 
-std::string Ceetah::AST::Assignment::toString() const {
-  auto result = "((" + target->toString() + ") " + AssignmentType_operators[(uint8_t)type];
+std::string Ceetah::AST::Assignment::toStringWithIndent(std::string indent) const {
+  auto result = "((" + target->toStringWithIndent(indent) + ") " + AssignmentType_operators[(uint8_t)type];
 
-  if (newlineOnExpressions) result += '\n';
+  if (newlineOnExpressions) result += '\n' + indent + '\t';
 
-  result += " (" + value->toString() + "))";
+  result += " (" + value->toStringWithIndent(indent + '\t') + "))";
 
   if (!preComment.empty())
     result = "/* " + preComment + " */" + result;

@@ -19,10 +19,10 @@ Ceetah::AST::Type::Type(std::shared_ptr<Ceetah::AST::Type> _returnType, std::vec
   modifiers(_modifiers)
   {};
 
-std::string Ceetah::AST::Type::toString() const {
+std::string Ceetah::AST::Type::toStringWithIndent(std::string indent) const {
   std::string result;
   if (isFunction) {
-    result = returnType->toString() + "(*)(";
+    result = returnType->toStringWithIndent(indent) + "(*)(";
     bool isFirst = true;
     for (auto& param: parameters) {
       if (isFirst) {
@@ -30,7 +30,7 @@ std::string Ceetah::AST::Type::toString() const {
       } else {
         result += ", ";
       }
-      result += param->toString();
+      result += param->toStringWithIndent(indent);
     }
     result += ')';
   } else {
