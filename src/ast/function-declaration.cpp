@@ -24,6 +24,15 @@ std::string Ceetah::AST::FunctionDeclaration::toStringWithIndent(std::string ind
     result += name;
   }
 
+  if (vararg) {
+    if (isFirst) {
+      isFirst = false;
+    } else {
+      result += ", ";
+    }
+    result += "...";
+  }
+
   result += ");";
 
   if (!preComment.empty())
@@ -78,5 +87,6 @@ void Ceetah::AST::FunctionDeclaration::cloneTo(std::shared_ptr<Node> _node) cons
       std::get<1>(node->parameters[i])->parent = node;
     }
   }
+  node->vararg = vararg;
   CEETAH_AST_CLONE_CHILD(returnType);
 };

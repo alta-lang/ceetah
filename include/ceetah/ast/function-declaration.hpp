@@ -15,6 +15,7 @@ namespace Ceetah {
         std::string name;
         std::vector<std::tuple<std::string, std::shared_ptr<Type>>> parameters;
         std::shared_ptr<Type> returnType;
+        bool vararg = false;
 
         virtual std::shared_ptr<Node> clone() const override;
         void cloneTo(std::shared_ptr<Node> node) const;

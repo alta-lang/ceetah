@@ -164,11 +164,12 @@ void Ceetah::Builder::insertAfter(std::shared_ptr<Ceetah::AST::Node> node, bool 
   }
 };
 
-void Ceetah::Builder::insertFunctionDeclaration(std::string name, std::vector<std::tuple<std::string, std::shared_ptr<AST::Type>>> parameters, std::shared_ptr<AST::Type> returnType) {
+void Ceetah::Builder::insertFunctionDeclaration(std::string name, std::vector<std::tuple<std::string, std::shared_ptr<AST::Type>>> parameters, std::shared_ptr<AST::Type> returnType, bool vararg) {
   auto funcDef = std::make_shared<AST::FunctionDeclaration>();
   funcDef->name = name;
   funcDef->parameters = parameters;
   funcDef->returnType = returnType;
+  funcDef->vararg = vararg;
   insert(funcDef);
 };
 void Ceetah::Builder::insertFunctionDefinition(std::string name, std::vector<std::tuple<std::string, std::shared_ptr<Ceetah::AST::Type>>> parameters, std::shared_ptr<Ceetah::AST::Type> returnType, bool isStatic) {
